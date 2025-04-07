@@ -16,6 +16,7 @@ public class TelaEquipamento
         Console.WriteLine("2 - Edição de Equipamento");
         Console.WriteLine("3 - Exclusão de Equipamento");
         Console.WriteLine("4 - Visualização de Equipamentos");
+        Console.WriteLine("5 - Voltar ao menu principal");
         Console.WriteLine("---------------------------------------------");
 
         Console.Write("Digite uma opção válida: ");

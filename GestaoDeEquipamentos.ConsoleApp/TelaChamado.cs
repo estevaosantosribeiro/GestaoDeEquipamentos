@@ -16,6 +16,7 @@ public class TelaChamado
         Console.WriteLine("2 - Edição de Chamado");
         Console.WriteLine("3 - Exclusão de Chamado");
         Console.WriteLine("4 - Visualização de Chamados");
+        Console.WriteLine("5 - Voltar ao menu principal");
         Console.WriteLine("---------------------------------------------");
 
         Console.Write("Digite uma opção válida: ");

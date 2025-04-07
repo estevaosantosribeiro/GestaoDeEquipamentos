@@ -4,32 +4,33 @@
     {
         static void Main(string[] args)
         {
-            Console.Clear();
-            Console.WriteLine("---------------------------------------------");
-            Console.WriteLine("Gestão de Equipamentos");
-            Console.WriteLine("---------------------------------------------");
-            Console.WriteLine("Escolha a operação desejada:");
-            Console.WriteLine("1 - Controle de Equipamentos");
-            Console.WriteLine("2 - Controle de Chamados");
-            Console.WriteLine("---------------------------------------------");
-
-            Console.Write("Digite uma opção válida: ");
-            string opcaoEscolhida = Console.ReadLine();
-
-            switch (opcaoEscolhida)
+            while (true)
             {
-                case "1":
-                    ControleEquipamentos();
-                    break;
-                case "2":
-                    ControleChamados();
-                    break;
-                default:
-                    Console.WriteLine("Houve um erro, por favor tente novamente!");
-                    break;
-            }
+                Console.Clear();
+                Console.WriteLine("---------------------------------------------");
+                Console.WriteLine("Gestão de Equipamentos");
+                Console.WriteLine("---------------------------------------------");
+                Console.WriteLine("Escolha a operação desejada:");
+                Console.WriteLine("1 - Controle de Equipamentos");
+                Console.WriteLine("2 - Controle de Chamados");
+                Console.WriteLine("---------------------------------------------");
 
-            ControleEquipamentos();
+                Console.Write("Digite uma opção válida: ");
+                string opcaoEscolhida = Console.ReadLine();
+
+                switch (opcaoEscolhida)
+                {
+                    case "1":
+                        ControleEquipamentos();
+                        break;
+                    case "2":
+                        ControleChamados();
+                        break;
+                    default:
+                        Console.WriteLine("Houve um erro, por favor tente novamente!");
+                        break;
+                }
+            }
         }
 
         static void ControleEquipamentos()
@@ -61,7 +62,7 @@
                         break;
 
                     default:
-                        Console.WriteLine("Saindo do programa...");
+                        Console.WriteLine("Voltando ao menu principal...");
                         continuar = false;
                         break;
                 }
@@ -99,7 +100,7 @@
                         break;
 
                     default:
-                        Console.WriteLine("Saindo do programa...");
+                        Console.WriteLine("Voltando ao menu principal...");
                         continuar = false;
                         break;
                 }
