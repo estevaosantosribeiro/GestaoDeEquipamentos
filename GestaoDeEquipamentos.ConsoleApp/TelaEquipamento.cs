@@ -59,7 +59,7 @@ public class TelaEquipamento
         Console.WriteLine("---------------------------------------------");
         Console.WriteLine("Gestão de Equipamentos");
         Console.WriteLine("---------------------------------------------");
-        Console.WriteLine("Cadastrando equipamento...");
+        Console.WriteLine("Editando equipamento...");
         Console.WriteLine("---------------------------------------------");
 
         Console.WriteLine();
