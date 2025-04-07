@@ -159,7 +159,7 @@ public class TelaChamado
 
         // Cabeçalho da Tabela
         Console.WriteLine(
-            "{0, -10} | {1, -15} | {2, -11} | {3, -15} | {5, -10}",
+            "{0, -10} | {1, -15} | {2, -20} | {3, -15} | {4, -10}",
             "Id", "Título", "Descrição", "Equipamento", "Data de Abertura"
         );
 
@@ -170,7 +170,7 @@ public class TelaChamado
             if (chamadoSelecionado == null) continue;
 
             Console.WriteLine(
-               "{0, -10} | {1, -15} | {2, -11} | {3, -15} | {4, -15} | {5, -10}",
+               "{0, -10} | {1, -15} | {2, -20} | {3, -15} | {4, -10}",
                chamadoSelecionado.Id,
                chamadoSelecionado.Titulo,
                chamadoSelecionado.Descricao,

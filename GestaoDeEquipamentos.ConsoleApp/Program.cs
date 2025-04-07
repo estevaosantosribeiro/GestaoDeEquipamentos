@@ -4,9 +4,41 @@
     {
         static void Main(string[] args)
         {
+            Console.Clear();
+            Console.WriteLine("---------------------------------------------");
+            Console.WriteLine("Gestão de Equipamentos");
+            Console.WriteLine("---------------------------------------------");
+            Console.WriteLine("Escolha a operação desejada:");
+            Console.WriteLine("1 - Controle de Equipamentos");
+            Console.WriteLine("2 - Controle de Chamados");
+            Console.WriteLine("---------------------------------------------");
+
+            Console.Write("Digite uma opção válida: ");
+            string opcaoEscolhida = Console.ReadLine();
+
+            switch (opcaoEscolhida)
+            {
+                case "1":
+                    ControleEquipamentos();
+                    break;
+                case "2":
+                    ControleChamados();
+                    break;
+                default:
+                    Console.WriteLine("Houve um erro, por favor tente novamente!");
+                    break;
+            }
+
+            ControleEquipamentos();
+        }
+
+        static void ControleEquipamentos()
+        {
             TelaEquipamento telaEquipamento = new TelaEquipamento();
 
-            while (true)
+            bool continuar = true;
+
+            while (continuar)
             {
                 string opcaoEscolhida = telaEquipamento.ApresentarMenu();
 
@@ -30,10 +62,49 @@
 
                     default:
                         Console.WriteLine("Saindo do programa...");
+                        continuar = false;
                         break;
                 }
 
-            Console.ReadLine();
+                Console.ReadLine();
+            }
+        }
+
+        static void ControleChamados()
+        {
+            TelaChamado telaChamado = new TelaChamado();
+
+            bool continuar = true;
+
+            while (continuar)
+            {
+                string opcaoEscolhida = telaChamado.ApresentarMenu();
+
+                switch (opcaoEscolhida)
+                {
+                    case "1":
+                        telaChamado.CriarChamado();
+                        break;
+
+                    case "2":
+                        telaChamado.EditarChamado();
+                        break;
+
+                    case "3":
+                        telaChamado.ExcluirChamado();
+                        break;
+
+                    case "4":
+                        telaChamado.VisualizarChamados(true);
+                        break;
+
+                    default:
+                        Console.WriteLine("Saindo do programa...");
+                        continuar = false;
+                        break;
+                }
+
+                Console.ReadLine();
             }
         }
     }
