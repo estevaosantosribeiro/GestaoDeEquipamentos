@@ -1,4 +1,5 @@
 ﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 
@@ -7,48 +8,47 @@ public class TelaChamado
     public Chamado[] chamados = new Chamado[100];
     public int contadorChamados = 0;
 
-    public string ApresentarMenu()
+    public char ApresentarMenu()
     {
         Console.Clear();
-        Console.WriteLine("---------------------------------------------");
-        Console.WriteLine("Gestão de Equipamentos");
-        Console.WriteLine("---------------------------------------------");
-        Console.WriteLine("Escolha a operação desejada:");
-        Console.WriteLine("1 - Criação de Chamado");
-        Console.WriteLine("2 - Edição de Chamado");
-        Console.WriteLine("3 - Exclusão de Chamado");
-        Console.WriteLine("4 - Visualização de Chamados");
-        Console.WriteLine("5 - Voltar ao menu principal");
-        Console.WriteLine("---------------------------------------------");
 
-        Console.Write("Digite uma opção válida: ");
-        string opcaoEscolhida = Console.ReadLine()!;
-
-        return opcaoEscolhida;
-    }
-
-    public void CriarChamado()
-    {
-        Console.Clear();
-        Console.WriteLine("---------------------------------------------");
-        Console.WriteLine("Gestão de Equipamentos");
-        Console.WriteLine("---------------------------------------------");
-        Console.WriteLine("Criando chamado...");
-        Console.WriteLine("---------------------------------------------");
+        Console.WriteLine("----------------------------------------------");
+        Console.WriteLine("|             Gestão de Chamados             |");
+        Console.WriteLine("----------------------------------------------");
 
         Console.WriteLine();
 
+        Console.WriteLine("Escolha a operação desejada:");
+        Console.WriteLine("---------------------------------------------");
+        Console.WriteLine("1 - Cadastrar Chamado");
+        Console.WriteLine("2 - Editar Chamado");
+        Console.WriteLine("3 - Excluir Chamado");
+        Console.WriteLine("4 - Visualizar Chamados");
+
+        Console.WriteLine("5 - Voltar");
+
+        Console.WriteLine();
+
+        Console.Write("Escolha uma das opções: ");
+        char operacaoEscolhida = Convert.ToChar(Console.ReadLine()!);
+
+        return operacaoEscolhida;
+    }
+
+    public void CadastrarChamado()
+    {
+        ExibirCabecalho();
+
+        Console.WriteLine("Cadastrando Chamado...");
+        Console.WriteLine("---------------------------------------------");
+
         Console.Write("Digite o título do chamado: ");
-        string titulo = Console.ReadLine();
+        string titulo = Console.ReadLine()!.Trim();
 
         Console.Write("Digite a descrição do chamado: ");
-        string descricao = Console.ReadLine();
+        string descricao = Console.ReadLine()!.Trim();
 
-        Console.Write("Digite o id do equipamento: ");
-        int idEquipamento = Convert.ToInt32(Console.ReadLine());
-
-        Console.Write("Digite a data de abertura do chamado: (dd/MM/yyyy) ");
-        DateTime dataAbertura = Convert.ToDateTime(Console.ReadLine());
+        Equipamento equipamento;
 
         Chamado novoChamado = new Chamado(titulo, descricao, idEquipamento, dataAbertura);
         novoChamado.Id = GeradorIds.GerarIdEquipamento();
@@ -181,6 +181,22 @@ public class TelaChamado
                chamadoSelecionado.DataAbertura.ToShortDateString()
             );
         }
+
+        Console.WriteLine();
+    }
+
+    public void VisualizarEquipamentos()
+    {
+
+    }
+
+    public void ExibirCabecalho()
+    {
+        Console.Clear();
+
+        Console.WriteLine("----------------------------------------------");
+        Console.WriteLine("Controle de Chamados");
+        Console.WriteLine("----------------------------------------------");
 
         Console.WriteLine();
     }

@@ -1,4 +1,5 @@
-﻿using GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
+﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+using GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
 namespace GestaoDeEquipamentos.ConsoleApp
@@ -7,6 +8,10 @@ namespace GestaoDeEquipamentos.ConsoleApp
     {
         static void Main(string[] args)
         {
+            TelaPrincipal telaPrincipal = new TelaPrincipal();
+
+            char opcaoPrincipal = telaPrincipal.ApresentarMenuPrincipal();
+
             while (true)
             {
                 Console.Clear();
@@ -48,26 +53,15 @@ namespace GestaoDeEquipamentos.ConsoleApp
 
                 switch (opcaoEscolhida)
                 {
-                    case "1":
-                        telaEquipamento.CadastrarEquipamento();
-                        break;
+                    case "1": telaEquipamento.CadastrarEquipamento(); break;
 
-                    case "2":
-                        telaEquipamento.EditarEquipamento();
-                        break;
+                    case "2": telaEquipamento.EditarEquipamento(); break;
 
-                    case "3":
-                        telaEquipamento.ExcluirEquipamento();
-                        break;
+                    case "3": telaEquipamento.ExcluirEquipamento(); break;
 
-                    case "4":
-                        telaEquipamento.VisualizarEquipamentos(true);
-                        break;
+                    case "4": telaEquipamento.VisualizarEquipamentos(true); break;
 
-                    default:
-                        Console.WriteLine("Voltando ao menu principal...");
-                        continuar = false;
-                        break;
+                    default: continuar = false; break;
                 }
 
                 Console.ReadLine();
@@ -87,7 +81,7 @@ namespace GestaoDeEquipamentos.ConsoleApp
                 switch (opcaoEscolhida)
                 {
                     case "1":
-                        telaChamado.CriarChamado();
+                        telaChamado.CadastrarChamado();
                         break;
 
                     case "2":

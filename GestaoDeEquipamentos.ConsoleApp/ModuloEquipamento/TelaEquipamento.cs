@@ -4,8 +4,12 @@ namespace GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
 public class TelaEquipamento
 {
-    public Equipamento[] equipamentos = new Equipamento[100];
-    public int contadorEquipamentos = 0;
+    public RepositorioEquipamento repositorioEquipamento;
+
+    public TelaEquipamento()
+    {
+        repositorioEquipamento = new RepositorioEquipamento();
+    }
 
     public string ApresentarMenu()
     {
@@ -51,9 +55,8 @@ public class TelaEquipamento
         DateTime dataFabricacao = Convert.ToDateTime(Console.ReadLine());
 
         Equipamento novoEquipamento = new Equipamento(nome, fabricante, precoAquisicao, dataFabricacao);
-        novoEquipamento.Id = GeradorIds.GerarIdEquipamento();
 
-        equipamentos[contadorEquipamentos++] = novoEquipamento;
+        repositorioEquipamento.CadastrarEquipamento(novoEquipamento);
     }
 
     public void EditarEquipamento()
@@ -88,22 +91,7 @@ public class TelaEquipamento
 
         Equipamento novoEquipamento = new Equipamento(nome, fabricante, precoAquisicao, dataFabricacao);
 
-        bool conseguiuEditar = false;
-
-        for (int i = 0; i < equipamentos.Length; i++)
-        {
-            if (equipamentos[i] == null) continue;
-
-            else if (equipamentos[i].Id == idSelecionado)
-            {
-                equipamentos[i].Nome = novoEquipamento.Nome;
-                equipamentos[i].Fabricante = novoEquipamento.Fabricante;
-                equipamentos[i].PrecoAquisicao = novoEquipamento.PrecoAquisicao;
-                equipamentos[i].DataFabricacao = novoEquipamento.DataFabricacao;
-
-                conseguiuEditar = true;
-            }
-        }
+        bool conseguiuEditar = repositorioEquipamento.EditarEquipamento(idSelecionado, novoEquipamento);
 
         if (!conseguiuEditar)
         {
@@ -127,18 +115,7 @@ public class TelaEquipamento
         Console.Write("Digite o ID do registro que deseja selecionar: ");
         int idSelecionado = Convert.ToInt32(Console.ReadLine());
 
-        bool conseguiuExcluir = false;
-
-        for (int i = 0; i < equipamentos.Length; i++)
-        {
-            if (equipamentos[i] == null) continue;
-
-            else if (equipamentos[i].Id == idSelecionado)
-            {
-                equipamentos[i] = null;
-                conseguiuExcluir = true;
-            }
-        }
+        bool conseguiuExcluir = repositorioEquipamento.ExcluirEquipamento(idSelecionado);
 
         if (!conseguiuExcluir)
         {
@@ -166,9 +143,11 @@ public class TelaEquipamento
             "Id", "Nome", "Num. Série", "Fabricante", "Preço", "Data de Fabricação"
         );
 
-        for (int i = 0; i < equipamentos.Length; i++)
+        Equipamento[] equipamentosCadastrados = repositorioEquipamento.SelecionarEquipamentos();
+
+        for (int i = 0; i < equipamentosCadastrados.Length; i++)
         {
-            Equipamento equipamentoSelecionado = equipamentos[i];
+            Equipamento equipamentoSelecionado = equipamentosCadastrados[i];
 
             if (equipamentoSelecionado == null) continue;
 

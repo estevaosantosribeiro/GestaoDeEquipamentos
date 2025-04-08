@@ -1,18 +1,27 @@
-﻿namespace GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
+﻿using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
+
+namespace GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 
 public class Chamado
 {
     public int Id;
     public string Titulo;
     public string Descricao;
-    public int IdEquipamento;
+    public Equipamento Equipamento;
     public DateTime DataAbertura;
 
-    public Chamado(string titulo, string descricao, int idEquipamento, DateTime dataAbertura)
+    public Chamado(string titulo, string descricao, Equipamento equipamento)
     {
         Titulo = titulo;
         Descricao = descricao;
-        IdEquipamento = idEquipamento;
-        DataAbertura = dataAbertura;
+        Equipamento = equipamento;
+        DataAbertura = DateTime.Now;
+    }
+
+    public int ObterTempoDecorrido()
+    {
+        TimeSpan diferencaTempo = DateTime.Now.Subtract(DataAbertura);
+
+        return diferencaTempo.Days;
     }
 }
