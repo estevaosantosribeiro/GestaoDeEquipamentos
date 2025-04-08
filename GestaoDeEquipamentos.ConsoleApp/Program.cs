@@ -1,4 +1,7 @@
-﻿namespace GestaoDeEquipamentos.ConsoleApp
+﻿using GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
+using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
+
+namespace GestaoDeEquipamentos.ConsoleApp
 {
     internal class Program
     {

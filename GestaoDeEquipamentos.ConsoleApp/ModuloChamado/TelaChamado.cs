@@ -1,4 +1,6 @@
-﻿namespace GestaoDeEquipamentos.ConsoleApp;
+﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+
+namespace GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 
 public class TelaChamado
 {
