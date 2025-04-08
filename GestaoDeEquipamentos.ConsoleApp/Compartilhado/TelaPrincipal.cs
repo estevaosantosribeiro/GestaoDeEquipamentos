@@ -19,7 +19,7 @@ public class TelaPrincipal
         Console.WriteLine();
 
         Console.Write("Escolha uma das opções: ");
-        char opcaoEscolhida = Console.ReadLine()[0];
+        char opcaoEscolhida = Console.ReadLine()![0];
 
         return opcaoEscolhida;
     }

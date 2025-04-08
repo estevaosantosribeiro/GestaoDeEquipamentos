@@ -2,108 +2,62 @@
 using GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
-namespace GestaoDeEquipamentos.ConsoleApp
-{
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
-            TelaPrincipal telaPrincipal = new TelaPrincipal();
+namespace GestaoDeEquipamentos.ConsoleApp;
 
+class Program
+{
+    static void Main(string[] args)
+    {
+        TelaEquipamento telaEquipamento = new TelaEquipamento();
+
+        RepositorioEquipamento repositorioEquipamento = telaEquipamento.repositorioEquipamento;
+
+        TelaChamado telaChamado = new TelaChamado(repositorioEquipamento);
+
+        TelaPrincipal telaPrincipal = new TelaPrincipal();
+
+
+        while (true)
+        {
             char opcaoPrincipal = telaPrincipal.ApresentarMenuPrincipal();
 
-            while (true)
+            if (opcaoPrincipal == '1')
             {
-                Console.Clear();
-                Console.WriteLine("---------------------------------------------");
-                Console.WriteLine("Gestão de Equipamentos");
-                Console.WriteLine("---------------------------------------------");
-                Console.WriteLine("Escolha a operação desejada:");
-                Console.WriteLine("1 - Controle de Equipamentos");
-                Console.WriteLine("2 - Controle de Chamados");
-                Console.WriteLine("---------------------------------------------");
-
-                Console.Write("Digite uma opção válida: ");
-                string opcaoEscolhida = Console.ReadLine();
+                char opcaoEscolhida = telaEquipamento.ApresentarMenu();
 
                 switch (opcaoEscolhida)
                 {
-                    case "1":
-                        ControleEquipamentos();
-                        break;
-                    case "2":
-                        ControleChamados();
-                        break;
-                    default:
-                        Console.WriteLine("Houve um erro, por favor tente novamente!");
-                        break;
+                    case '1': telaEquipamento.CadastrarEquipamento(); break;
+
+                    case '2': telaEquipamento.EditarEquipamento(); break;
+
+                    case '3': telaEquipamento.ExcluirEquipamento(); break;
+
+                    case '4': telaEquipamento.VisualizarEquipamentos(true); break;
+
+                    default: break;
                 }
             }
-        }
 
-        static void ControleEquipamentos()
-        {
-            TelaEquipamento telaEquipamento = new TelaEquipamento();
-
-            bool continuar = true;
-
-            while (continuar)
+            else if (opcaoPrincipal == '2')
             {
-                string opcaoEscolhida = telaEquipamento.ApresentarMenu();
+                char opcaoEscolhida = telaChamado.ApresentarMenu();
 
                 switch (opcaoEscolhida)
                 {
-                    case "1": telaEquipamento.CadastrarEquipamento(); break;
+                    case '1': telaChamado.CadastrarChamado(); break;
 
-                    case "2": telaEquipamento.EditarEquipamento(); break;
+                    case '2': telaChamado.EditarChamado(); break;
 
-                    case "3": telaEquipamento.ExcluirEquipamento(); break;
+                    case '3': telaChamado.ExcluirChamado(); break;
 
-                    case "4": telaEquipamento.VisualizarEquipamentos(true); break;
+                    case '4': telaChamado.VisualizarChamados(true); break;
 
-                    default: continuar = false; break;
+                    default: break;
                 }
-
-                Console.ReadLine();
             }
-        }
 
-        static void ControleChamados()
-        {
-            TelaChamado telaChamado = new TelaChamado();
-
-            bool continuar = true;
-
-            while (continuar)
-            {
-                string opcaoEscolhida = telaChamado.ApresentarMenu();
-
-                switch (opcaoEscolhida)
-                {
-                    case "1":
-                        telaChamado.CadastrarChamado();
-                        break;
-
-                    case "2":
-                        telaChamado.EditarChamado();
-                        break;
-
-                    case "3":
-                        telaChamado.ExcluirChamado();
-                        break;
-
-                    case "4":
-                        telaChamado.VisualizarChamados(true);
-                        break;
-
-                    default:
-                        Console.WriteLine("Voltando ao menu principal...");
-                        continuar = false;
-                        break;
-                }
-
-                Console.ReadLine();
-            }
+            Console.ReadLine();
         }
     }
 }

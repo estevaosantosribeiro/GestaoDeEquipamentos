@@ -11,7 +11,7 @@ public class TelaEquipamento
         repositorioEquipamento = new RepositorioEquipamento();
     }
 
-    public string ApresentarMenu()
+    public char ApresentarMenu()
     {
         Console.Clear();
         Console.WriteLine("---------------------------------------------");
@@ -26,7 +26,7 @@ public class TelaEquipamento
         Console.WriteLine("---------------------------------------------");
 
         Console.Write("Digite uma opção válida: ");
-        string opcaoEscolhida = Console.ReadLine();
+        char opcaoEscolhida = Console.ReadLine()![0];
 
         return opcaoEscolhida;
     }
@@ -43,10 +43,10 @@ public class TelaEquipamento
         Console.WriteLine();
 
         Console.Write("Digite o nome do equipamento: ");
-        string nome = Console.ReadLine();
+        string nome = Console.ReadLine()!;
 
         Console.Write("Digite o nome do fabricante do equipamento: ");
-        string fabricante = Console.ReadLine();
+        string fabricante = Console.ReadLine()!;
 
         Console.Write("Digite o preço de aquisição: R$ ");
         decimal precoAquisicao = Convert.ToDecimal(Console.ReadLine());
@@ -78,10 +78,10 @@ public class TelaEquipamento
         Console.WriteLine();
 
         Console.Write("Digite o nome do equipamento: ");
-        string nome = Console.ReadLine();
+        string nome = Console.ReadLine()!;
 
         Console.Write("Digite o nome do fabricante do equipamento: ");
-        string fabricante = Console.ReadLine();
+        string fabricante = Console.ReadLine()!;
 
         Console.Write("Digite o preço de aquisição: R$ ");
         decimal precoAquisicao = Convert.ToDecimal(Console.ReadLine());

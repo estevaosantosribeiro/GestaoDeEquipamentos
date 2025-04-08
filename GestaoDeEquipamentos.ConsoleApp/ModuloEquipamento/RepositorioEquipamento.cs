@@ -43,7 +43,7 @@ public class RepositorioEquipamento
 
             else if (equipamentos[i].Id == idEquipamento)
             {
-                equipamentos[i] = null;
+                equipamentos[i] = null!;
                 return true;
             }
         }
@@ -54,5 +54,20 @@ public class RepositorioEquipamento
     public Equipamento[] SelecionarEquipamentos()
     {
         return equipamentos;
+    }
+
+    public Equipamento SelecionarEquipamentoPorId(int idEquipamento)
+    {
+        for (int i = 0; i < equipamentos.Length; i++)
+        {
+            Equipamento e = equipamentos[i];
+
+            if (e == null) continue;
+
+            else if (e.Id == idEquipamento)
+                return e;
+        }
+
+        return null!;
     }
 }
