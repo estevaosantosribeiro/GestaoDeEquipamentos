@@ -1,55 +1,39 @@
 ﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
+using Microsoft.Win32;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
-public class TelaEquipamento
+public class TelaEquipamento : TelaBase
 {
     public RepositorioEquipamento repositorioEquipamento;
     public RepositorioFabricante repositorioFabricante;
 
-    public TelaEquipamento(RepositorioFabricante repositorioFabricante)
+    public TelaEquipamento(
+        RepositorioEquipamento repositorioEquipamento, 
+        RepositorioFabricante repositorioFabricante
+    ) : base("Equipamento", repositorioEquipamento)
     {
+        this.repositorioEquipamento = repositorioEquipamento;
         this.repositorioFabricante = repositorioFabricante;
-        repositorioEquipamento = new RepositorioEquipamento();
     }
 
-    public char ApresentarMenu()
-    {
-        Console.Clear();
-        Console.WriteLine("---------------------------------------------");
-        Console.WriteLine("Gestão de Equipamentos");
-        Console.WriteLine("---------------------------------------------");
-        Console.WriteLine("Escolha a operação desejada:");
-        Console.WriteLine("1 - Cadastro de Equipamento");
-        Console.WriteLine("2 - Edição de Equipamento");
-        Console.WriteLine("3 - Exclusão de Equipamento");
-        Console.WriteLine("4 - Visualização de Equipamentos");
-        Console.WriteLine("5 - Voltar ao menu principal");
-        Console.WriteLine("---------------------------------------------");
-
-        Console.Write("Digite uma opção válida: ");
-        char opcaoEscolhida = Console.ReadLine()![0];
-
-        return opcaoEscolhida;
-    }
-
-    public void CadastrarEquipamento()
+    public override void CadastrarRegistro()
     {
         ExibirCabecalho();
 
         Console.WriteLine("Cadastrando equipamento...");
         Console.WriteLine("---------------------------------------------");
 
-        Equipamento novoEquipamento = ObterDadosEquipamento();
+        Equipamento novoEquipamento = (Equipamento)ObterDados();
 
-        repositorioEquipamento.CadastrarEquipamento(novoEquipamento);
+        repositorioEquipamento.CadastrarRegistro(novoEquipamento);
 
         Console.WriteLine();
         Console.WriteLine("O equipamento foi cadastrado com sucesso!");
     }
 
-    public void EditarEquipamento()
+    public override void EditarRegistro()
     {
         ExibirCabecalho();
 
@@ -58,16 +42,16 @@ public class TelaEquipamento
 
         Console.WriteLine();
 
-        VisualizarEquipamentos(false);
+        VisualizarRegistros(false);
 
         Console.Write("Digite o ID do registro que deseja selecionar: ");
         int idSelecionado = Convert.ToInt32(Console.ReadLine());
 
         Console.WriteLine();
 
-        Equipamento novoEquipamento = ObterDadosEquipamento();
-
-        bool conseguiuEditar = repositorioEquipamento.EditarEquipamento(idSelecionado, novoEquipamento);
+        Equipamento novoEquipamento = (Equipamento)ObterDados();
+        
+        bool conseguiuEditar = repositorioEquipamento.EditarRegistro(idSelecionado, novoEquipamento);
 
         if (!conseguiuEditar)
         {
@@ -77,19 +61,19 @@ public class TelaEquipamento
         Console.WriteLine("O equipamento foi editado com sucesso!");
     }
 
-    public void ExcluirEquipamento()
+    public override void ExcluirRegistro()
     {
         ExibirCabecalho();
 
         Console.WriteLine("Excluindo equipamentos...");
         Console.WriteLine("---------------------------------------------");
 
-        VisualizarEquipamentos(false);
+        VisualizarRegistros(false);
 
         Console.Write("Digite o ID do registro que deseja selecionar: ");
         int idSelecionado = Convert.ToInt32(Console.ReadLine());
 
-        bool conseguiuExcluir = repositorioEquipamento.ExcluirEquipamento(idSelecionado);
+        bool conseguiuExcluir = repositorioEquipamento.ExcluirRegistro(idSelecionado);
 
         if (!conseguiuExcluir)
         {
@@ -99,7 +83,41 @@ public class TelaEquipamento
         Console.WriteLine("O equipamento foi excluído com sucesso!");
     }
 
-    public void VisualizarEquipamentos(bool exibirTitulo)
+    public void VisualizarFabricantes()
+    {
+        Console.WriteLine("Visualizando Fabricantes...");
+        Console.WriteLine("----------------------------------------------");
+
+        Console.WriteLine();
+
+        Console.WriteLine(
+            "{0, -6} | {1, -15} | {2, -20} | {3, -15} | {3, -25}",
+            "Id", "Nome", "E-mail", "Telefone", "Quantidade de Equipamentos"
+        );
+
+        EntidadeBase[] registros = repositorioFabricante.SelecionarRegistros();
+        Fabricante[] fabricantesCadastrados = new Fabricante[registros.Length];
+
+        for (int i = 0; i < registros.Length; i++)
+            fabricantesCadastrados[i] = (Fabricante)registros[i];
+
+        for (int i = 0; i < fabricantesCadastrados.Length; i++)
+        {
+            Fabricante f = fabricantesCadastrados[i];
+
+            if (f == null) continue;
+
+            Console.WriteLine(
+               "{0, -6} | {1, -15} | {2, -20} | {3, -15} | {3, -6}",
+               f.Id, f.Nome, f.Email, f.Telefone, f.QuantidadeEquipamentos
+            );
+        }
+
+        Console.WriteLine();
+
+    }
+
+    public override void VisualizarRegistros(bool exibirTitulo)
     {
         if (exibirTitulo)
         {
@@ -116,7 +134,11 @@ public class TelaEquipamento
             "Id", "Nome", "Num. Série", "Fabricante", "Preço", "Data de Fabricação"
         );
 
-        Equipamento[] equipamentosCadastrados = repositorioEquipamento.SelecionarEquipamentos();
+        EntidadeBase[] registros = repositorioEquipamento.SelecionarRegistros();
+        Equipamento[] equipamentosCadastrados = new Equipamento[100];
+
+        for (int i = 0; i < registros.Length; i++)
+            equipamentosCadastrados[i] = (Equipamento)registros[i];
 
         for (int i = 0; i < equipamentosCadastrados.Length; i++)
         {
@@ -138,50 +160,7 @@ public class TelaEquipamento
         Console.WriteLine();
     }
 
-    public void VisualizarFabricantes()
-    {
-        Console.WriteLine("Visualizando Fabricantes...");
-        Console.WriteLine("----------------------------------------------");
-
-        Console.WriteLine();
-
-        Console.WriteLine(
-            "{0, -6} | {1, -15} | {2, -20} | {3, -15} | {3, -25}",
-            "Id", "Nome", "E-mail", "Telefone", "Quantidade de Equipamentos"
-        );
-
-        Fabricante[] fabricantesCadastrados = repositorioFabricante.SelecionarFabricantes();
-
-        for (int i = 0; i < fabricantesCadastrados.Length; i++)
-        {
-            Fabricante f = fabricantesCadastrados[i];
-
-            if (f == null) continue;
-
-            string NumeroEquipamentos = $"{f.ObterNumeroEquipamentos()} equipamento(s)";
-
-            Console.WriteLine(
-               "{0, -6} | {1, -15} | {2, -20} | {3, -15} | {3, -6}",
-               f.Id, f.Nome, f.Email, f.Telefone, NumeroEquipamentos
-            );
-        }
-
-        Console.WriteLine();
-
-    }
-
-    public void ExibirCabecalho()
-    {
-        Console.Clear();
-
-        Console.WriteLine("----------------------------------------------");
-        Console.WriteLine("Controle de Equipamentos");
-        Console.WriteLine("----------------------------------------------");
-
-        Console.WriteLine();
-    }
-
-    public Equipamento ObterDadosEquipamento()
+    public override EntidadeBase ObterDados()
     {
         Console.Write("Digite o nome do equipamento: ");
         string nome = Console.ReadLine()!;
@@ -191,7 +170,7 @@ public class TelaEquipamento
         Console.Write("Digite o ID do fabricante do equipamento: ");
         int idFabricante = Convert.ToInt32(Console.ReadLine()!);
 
-        Fabricante fabricanteSelecionado = repositorioFabricante.SelecionarFabricantePorId(idFabricante);
+        Fabricante fabricanteSelecionado = (Fabricante)repositorioFabricante.SelecionarRegistroPorId(idFabricante);
 
         Console.Write("Digite o preço de aquisição: R$ ");
         decimal precoAquisicao = Convert.ToDecimal(Console.ReadLine());

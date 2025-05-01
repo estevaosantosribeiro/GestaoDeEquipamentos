@@ -1,112 +1,19 @@
-﻿using GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
+﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+using GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
 
-public class TelaFabricante
+public class TelaFabricante : TelaBase
 {
     public RepositorioFabricante repositorioFabricante;
 
-    public TelaFabricante()
+    public TelaFabricante(RepositorioFabricante repositorioFabricante) : base("Fabricante", repositorioFabricante)
     {
-        repositorioFabricante = new RepositorioFabricante();
+        this.repositorioFabricante = repositorioFabricante;
     }
 
-    public char ApresentarMenu()
-    {
-        Console.Clear();
-
-        Console.WriteLine("----------------------------------------------");
-        Console.WriteLine("|           Gestão de Fabricantes            |");
-        Console.WriteLine("----------------------------------------------");
-
-        Console.WriteLine();
-
-        Console.WriteLine("Escolha a operação desejada:");
-        Console.WriteLine("---------------------------------------------");
-        Console.WriteLine("1 - Cadastrar Fabricante");
-        Console.WriteLine("2 - Editar Fabricante");
-        Console.WriteLine("3 - Excluir Fabricante");
-        Console.WriteLine("4 - Visualizar Fabricantes");
-
-        Console.WriteLine("5 - Voltar");
-
-        Console.WriteLine();
-
-        Console.Write("Escolha uma das opções: ");
-        char operacaoEscolhida = Convert.ToChar(Console.ReadLine()!);
-
-        return operacaoEscolhida;
-    }
-
-    public void CadastrarFabricante()
-    {
-        ExibirCabecalho();
-
-        Console.WriteLine("Cadastrando Fabricante...");
-        Console.WriteLine("---------------------------------------------");
-
-        Console.WriteLine();
-
-        Fabricante novoFabricante = ObterDadosFabricante();
-
-        repositorioFabricante.CadastrarFabricante(novoFabricante);
-
-        Console.WriteLine();
-        Console.WriteLine("O fabricante foi cadastrado com sucesso!");
-    }
-
-    public void EditarFabricante()
-    {
-        ExibirCabecalho();
-
-        Console.WriteLine("Editando Fabricante...");
-        Console.WriteLine("---------------------------------------------");
-
-        Console.WriteLine();
-
-        VisualizarFabricantes(false);
-
-        Console.Write("Digite o ID do registro que deseja selecionar: ");
-        int idSelecionado = Convert.ToInt32(Console.ReadLine());
-
-        Console.WriteLine();
-
-        Fabricante novoFabricante = ObterDadosFabricante();
-
-        bool conseguiuEditar = repositorioFabricante.EditarFabricante(idSelecionado, novoFabricante);
-
-        if (!conseguiuEditar)
-        {
-            Console.WriteLine("Houve um erro durante a edição de um registro...");
-            return;
-        }
-        Console.WriteLine("O fabricante foi editado com sucesso!");
-    }
-
-    public void ExcluirFabricante()
-    {
-        ExibirCabecalho();
-
-        Console.WriteLine("Excluindo Fabricante...");
-        Console.WriteLine("---------------------------------------------");
-
-        VisualizarFabricantes(false);
-
-        Console.Write("Digite o ID do registro que deseja selecionar: ");
-        int idSelecionado = Convert.ToInt32(Console.ReadLine());
-
-        bool conseguiuExcluir = repositorioFabricante.ExcluirFabricante(idSelecionado);
-
-        if (!conseguiuExcluir)
-        {
-            Console.WriteLine("Houve um erro durante a exclusão de um registro...");
-            return;
-        }
-        Console.WriteLine("O fabricante foi excluído com sucesso!");
-    }
-
-    public void VisualizarFabricantes(bool exibirTitulo)
+    public override void VisualizarRegistros(bool exibirTitulo)
     {
         if (exibirTitulo)
         {
@@ -122,7 +29,11 @@ public class TelaFabricante
             "Id", "Nome", "E-mail", "Telefone", "Quantidade de Equipamentos"
         );
 
-        Fabricante[] fabricantesCadastrados = repositorioFabricante.SelecionarFabricantes();
+        EntidadeBase[] registros = repositorioFabricante.SelecionarRegistros();
+        Fabricante[] fabricantesCadastrados = new Fabricante[registros.Length];
+
+        for (int i = 0; i < registros.Length; i++)
+            fabricantesCadastrados[i] = (Fabricante)registros[i];
 
         for (int i = 0; i < fabricantesCadastrados.Length; i++)
         {
@@ -130,27 +41,14 @@ public class TelaFabricante
 
             if (f == null) continue;
 
-            string NumeroEquipamentos = $"{f.ObterNumeroEquipamentos()} equipamento(s)";
-
             Console.WriteLine(
                "{0, -6} | {1, -15} | {2, -20} | {3, -15} | {3, -6}",
-               f.Id, f.Nome, f.Email, f.Telefone, NumeroEquipamentos
+               f.Id, f.Nome, f.Email, f.Telefone, f.QuantidadeEquipamentos
             );
         }
     }
 
-    public void ExibirCabecalho()
-    {
-        Console.Clear();
-
-        Console.WriteLine("----------------------------------------------");
-        Console.WriteLine("Controle de Fabricantes");
-        Console.WriteLine("----------------------------------------------");
-
-        Console.WriteLine();
-    }
-
-    public Fabricante ObterDadosFabricante()
+    public override EntidadeBase ObterDados()
     {
         Console.Write("Digite o nome do fabricante: ");
         string nome = Console.ReadLine()!;

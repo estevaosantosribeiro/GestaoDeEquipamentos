@@ -1,14 +1,32 @@
 ﻿
+using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
 
-public class Fabricante
+public class Fabricante : EntidadeBase
 {
-    public int Id;
-    public string Nome;
-    public string Email;
-    public string Telefone;
+    public string Nome { get; set; }
+    public string Email { get; set; }
+    public string Telefone { get; set; }
+    public Equipamento[] Equipamentos { get; private set; }
+    public int QuantidadeEquipamentos
+    {
+        get
+        {
+            int contador = 0;
+
+            for (int i = 0; i < Equipamentos.Length; i++)
+            {
+                if (Equipamentos[i] != null)
+                {
+                    contador++;
+                }
+            }
+
+            return contador;
+        }
+    }
 
     public Fabricante(string nome, string email, string telefone)
     {
@@ -17,23 +35,17 @@ public class Fabricante
         Telefone = telefone;
     }
 
-    public int ObterNumeroEquipamentos()
+    public override void AtualizarRegistro(EntidadeBase registroEditado)
     {
-        //Equipamento[] equipamentosCadastrados = repositorioEquipamento.SelecionarEquipamentos();
+        Fabricante fabricanteEditado = (Fabricante)registroEditado;
 
-        //int numeroEquipamentos = 0;
+        Nome = fabricanteEditado.Nome;
+        Email = fabricanteEditado.Email;
+        Telefone = fabricanteEditado.Telefone;
+    }
 
-        //for (int i = 0; i < equipamentosCadastrados.Length; i++)
-        //{
-        //    if (equipamentosCadastrados[i] == null) continue;
-
-        //    if (equipamentosCadastrados[i].Fabricante.Id == Id)
-        //    {
-        //        numeroEquipamentos++;
-        //    }
-        //}
-
-        //return numeroEquipamentos;
-        return 1;
+    public override string Validar()
+    {
+        throw new NotImplementedException();
     }
 }
