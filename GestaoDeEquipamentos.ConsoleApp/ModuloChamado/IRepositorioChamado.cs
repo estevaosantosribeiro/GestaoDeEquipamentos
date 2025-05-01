@@ -2,4 +2,4 @@
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 
-public class RepositorioChamado : RepositorioBase<Chamado>, IRepositorioChamado;
+public interface IRepositorioChamado : IRepositorio<Chamado>;

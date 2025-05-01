@@ -3,14 +3,27 @@ using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 
-public class Chamado : EntidadeBase
+public class Chamado : EntidadeBase<Chamado>
 {
-    public string Titulo;
-    public string Descricao;
-    public Equipamento Equipamento;
-    public DateTime DataAbertura;
+    public string Titulo { get; set; }
+    public string Descricao { get; set; }
+    public Equipamento Equipamento { get; set; }
+    public DateTime DataAbertura { get; set; }
+    public int TempoDecorrido
+    {
+        get
+        {
+            TimeSpan diferencaTempo = DateTime.Now.Subtract(DataAbertura);
 
-    public Chamado(string titulo, string descricao, Equipamento equipamento)
+            return diferencaTempo.Days;
+        }
+    }
+
+    public Chamado()
+    {
+    }
+
+    public Chamado(string titulo, string descricao, Equipamento equipamento) : this()
     {
         Titulo = titulo;
         Descricao = descricao;
@@ -18,20 +31,11 @@ public class Chamado : EntidadeBase
         DataAbertura = DateTime.Now;
     }
 
-    public int ObterTempoDecorrido()
+    public override void AtualizarRegistro(Chamado registroEditado)
     {
-        TimeSpan diferencaTempo = DateTime.Now.Subtract(DataAbertura);
-
-        return diferencaTempo.Days;
-    }
-
-    public override void AtualizarRegistro(EntidadeBase registroEditado)
-    {
-        Chamado chamadoEditado = (Chamado)registroEditado;
-
-        Titulo = chamadoEditado.Titulo;
-        Descricao = chamadoEditado.Descricao;
-        Equipamento = chamadoEditado.Equipamento;
+        Titulo = registroEditado.Titulo;
+        Descricao = registroEditado.Descricao;
+        Equipamento = registroEditado.Equipamento;
     }
 
     public override string Validar()

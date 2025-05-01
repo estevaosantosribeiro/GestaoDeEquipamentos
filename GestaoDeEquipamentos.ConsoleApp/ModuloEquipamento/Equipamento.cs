@@ -1,16 +1,32 @@
 ﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+using GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
-public class Equipamento : EntidadeBase
+public class Equipamento : EntidadeBase<Equipamento>
 {
-    public string Nome;
-    public Fabricante Fabricante;
-    public decimal PrecoAquisicao;
-    public DateTime DataFabricacao;
+    public string Nome { get; set; }
+    public Fabricante Fabricante { get; set; }
+    public decimal PrecoAquisicao { get; set; }
+    public DateTime DataFabricacao { get; set; }
+    public List<Chamado> Chamados { get; set; }
+    public string NumeroSerie
+    {
+        get
+        {
+            string tresPrimeirosCaracteres = Nome.Substring(0, 3).ToUpper();
 
-    public Equipamento(string nome, Fabricante fabricante, decimal precoAquisicao, DateTime dataFabricacao)
+            return $"{tresPrimeirosCaracteres}-{Id}";
+        }
+    }
+
+    public Equipamento()
+    {
+        Chamados = new List<Chamado>();
+    }
+
+    public Equipamento(string nome, Fabricante fabricante, decimal precoAquisicao, DateTime dataFabricacao) : this()
     {
         Nome = nome;
         Fabricante = fabricante;
@@ -18,24 +34,41 @@ public class Equipamento : EntidadeBase
         DataFabricacao = dataFabricacao;
     }
 
-    public override void AtualizarRegistro(EntidadeBase registroEditado)
+    public void AdicionarChamado(Chamado chamado)
     {
-        Equipamento equipamentoEditado = (Equipamento)registroEditado;
-
-        Nome = equipamentoEditado.Nome;
-        Fabricante = equipamentoEditado.Fabricante;
-        PrecoAquisicao = equipamentoEditado.PrecoAquisicao;
+        if (!Chamados.Contains(chamado))
+            Chamados.Add(chamado);
     }
 
-    public string ObterNumeroSerie()
+    public void RemoverChamado(Chamado chamado)
     {
-        string tresPrimeirosCaracteres = Nome.Substring(0, 3).ToUpper();
+        if (Chamados.Contains(chamado))
+            Chamados.Remove(chamado);
+    }
 
-        return $"{tresPrimeirosCaracteres}-{Id}";
+    public override void AtualizarRegistro(Equipamento registroEditado)
+    {
+        Nome = registroEditado.Nome;
+        Fabricante = registroEditado.Fabricante;
+        PrecoAquisicao = registroEditado.PrecoAquisicao;
     }
 
     public override string Validar()
     {
-        throw new NotImplementedException();
+        string erros = "";
+
+        if (string.IsNullOrWhiteSpace(Nome))
+            erros += "O campo 'Nome' é obrigatório.\n";
+
+        if (Nome.Length < 3)
+            erros += "O campo 'Nome' precisa conter ao menos 3 caracteres.\n";
+
+        if (PrecoAquisicao <= 0)
+            erros += "O campo 'Preço de Aquisição' deve ser maior que zero.\n";
+
+        if (DataFabricacao > DateTime.Now)
+            erros += "O campo 'Data de Fabricação' deve conter uma data passada.\n";
+
+        return erros;
     }
 }

@@ -1,9 +1,10 @@
-﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+﻿using System.Collections;
+using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 
-public class TelaChamado : TelaBase
+public class TelaChamado : TelaBase<Chamado>, ITelaCrud
 {
     public RepositorioEquipamento repositorioEquipamento;
     public RepositorioChamado repositorioChamado;
@@ -29,26 +30,13 @@ public class TelaChamado : TelaBase
             "Id", "Nome", "Num. Série", "Fabricante", "Preço", "Data de Fabricação"
         );
 
-        EntidadeBase[] registros = repositorioEquipamento.SelecionarRegistros();
-        Equipamento[] equipamentosCadastrados = new Equipamento[100];
+        List<Equipamento> registros = repositorioEquipamento.SelecionarRegistros();
 
-        for (int i = 0; i < registros.Length; i++)
-            equipamentosCadastrados[i] = (Equipamento)registros[i];
-
-        for (int i = 0; i < equipamentosCadastrados.Length; i++)
+        foreach (var e in registros)
         {
-            Equipamento equipamento = equipamentosCadastrados[i];
-
-            if (equipamento == null) continue;
-
             Console.WriteLine(
                 "{0, -10} | {1, -15} | {2, -11} | {3, -15} | {4, -15} | {5, -10}",
-                equipamento.Id,
-                equipamento.Nome,
-                equipamento.ObterNumeroSerie(),
-                equipamento.Fabricante,
-                equipamento.PrecoAquisicao.ToString("C2"),
-                equipamento.DataFabricacao
+                e.Id, e.Nome, e.NumeroSerie, e.Fabricante, e.PrecoAquisicao.ToString("C2"), e.DataFabricacao.ToShortDateString()
             );
         }
 
@@ -71,28 +59,18 @@ public class TelaChamado : TelaBase
             "Id", "Data de Abertura", "Título", "Descrição", "Equipamento", "Tempo Decorrido"
         );
 
-        EntidadeBase[] registros = repositorioChamado.SelecionarRegistros();
-        Chamado[] chamadosCadastrados = new Chamado[registros.Length];
+        List<Chamado> registros = repositorioChamado.SelecionarRegistros();
 
-        for (int i = 0; i < registros.Length; i++)
-            chamadosCadastrados[i] = (Chamado)registros[i];
-
-        for (int i = 0; i < chamadosCadastrados.Length; i++)
+        foreach (var c in registros)
         {
-            Chamado c = chamadosCadastrados[i];
-
-            if (c == null) continue;
-
-            string TempoDecorrido = $"{c.ObterTempoDecorrido()} dia(s)";
-
             Console.WriteLine(
                "{0, -6} | {1, -12} | {2, -15} | {3, -30} | {4, -15} | {5, -15}",
-               c.Id, c.DataAbertura.ToShortDateString(), c.Titulo, c.Descricao, c.Equipamento.Nome, TempoDecorrido
+               c.Id, c.DataAbertura.ToShortDateString(), c.Titulo, c.Descricao, c.Equipamento.Nome, c.TempoDecorrido
             );
         }
     }
 
-    public override EntidadeBase ObterDados()
+    public override Chamado ObterDados()
     {
         Console.Write("Digite o título do chamado: ");
         string titulo = Console.ReadLine()!.Trim();

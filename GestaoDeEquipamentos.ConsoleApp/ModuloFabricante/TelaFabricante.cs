@@ -1,14 +1,16 @@
-﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+﻿using System.Collections;
+using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
 
-public class TelaFabricante : TelaBase
+public class TelaFabricante : TelaBase<Fabricante>, ITelaCrud
 {
-    public RepositorioFabricante repositorioFabricante;
+    public IRepositorioFabricante repositorioFabricante;
 
-    public TelaFabricante(RepositorioFabricante repositorioFabricante) : base("Fabricante", repositorioFabricante)
+    public TelaFabricante(IRepositorioFabricante repositorioFabricante)
+        : base("Fabricante", repositorioFabricante)
     {
         this.repositorioFabricante = repositorioFabricante;
     }
@@ -25,30 +27,22 @@ public class TelaFabricante : TelaBase
         Console.WriteLine();
 
         Console.WriteLine(
-            "{0, -6} | {1, -15} | {2, -20} | {3, -15} | {3, -25}",
+            "{0, -6} | {1, -15} | {2, -20} | {3, -15} | {4, -25}",
             "Id", "Nome", "E-mail", "Telefone", "Quantidade de Equipamentos"
         );
 
-        EntidadeBase[] registros = repositorioFabricante.SelecionarRegistros();
-        Fabricante[] fabricantesCadastrados = new Fabricante[registros.Length];
+        List<Fabricante> registros = repositorioFabricante.SelecionarRegistros();
 
-        for (int i = 0; i < registros.Length; i++)
-            fabricantesCadastrados[i] = (Fabricante)registros[i];
-
-        for (int i = 0; i < fabricantesCadastrados.Length; i++)
+        foreach (var f in registros)
         {
-            Fabricante f = fabricantesCadastrados[i];
-
-            if (f == null) continue;
-
             Console.WriteLine(
-               "{0, -6} | {1, -15} | {2, -20} | {3, -15} | {3, -6}",
+               "{0, -6} | {1, -15} | {2, -20} | {3, -15} | {4, -6}",
                f.Id, f.Nome, f.Email, f.Telefone, f.QuantidadeEquipamentos
             );
         }
     }
 
-    public override EntidadeBase ObterDados()
+    public override Fabricante ObterDados()
     {
         Console.Write("Digite o nome do fabricante: ");
         string nome = Console.ReadLine()!;

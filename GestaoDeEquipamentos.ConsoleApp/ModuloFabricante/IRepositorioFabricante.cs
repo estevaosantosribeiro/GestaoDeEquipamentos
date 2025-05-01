@@ -2,4 +2,4 @@
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
 
-public class RepositorioFabricante : RepositorioBase<Fabricante>, IRepositorioFabricante;
+public interface IRepositorioFabricante : IRepositorio<Fabricante>;
