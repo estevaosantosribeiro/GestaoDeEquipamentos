@@ -7,9 +7,9 @@ namespace GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
 
 public class TelaFabricante : TelaBase<Fabricante>, ITelaCrud
 {
-    public IRepositorioFabricante repositorioFabricante;
+    public RepositorioFabricante repositorioFabricante;
 
-    public TelaFabricante(IRepositorioFabricante repositorioFabricante)
+    public TelaFabricante(RepositorioFabricante repositorioFabricante)
         : base("Fabricante", repositorioFabricante)
     {
         this.repositorioFabricante = repositorioFabricante;
