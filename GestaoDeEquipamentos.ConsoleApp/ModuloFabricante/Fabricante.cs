@@ -73,4 +73,9 @@ public class Fabricante : EntidadeBase<Fabricante>
 
         return erros;
     }
+
+    public override string ToString()
+    {
+        return $"Id: {Id}, Nome: {Nome}, Email: {Email}, Telefone: {Telefone}";
+    }
 }
