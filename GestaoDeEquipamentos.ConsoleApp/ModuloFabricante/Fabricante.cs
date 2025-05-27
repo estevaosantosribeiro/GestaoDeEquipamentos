@@ -1,5 +1,4 @@
-﻿
-using System.Net.Mail;
+﻿using System.Net.Mail;
 using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 

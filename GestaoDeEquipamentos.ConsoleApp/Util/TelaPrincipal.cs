@@ -11,12 +11,14 @@ public class TelaPrincipal
     private RepositorioFabricante repositorioFabricante;
     private RepositorioEquipamento repositorioEquipamento;
     private RepositorioChamado repositorioChamado;
+    private ContextoDados contexto;
 
     public TelaPrincipal()
     {
-        this.repositorioFabricante = new RepositorioFabricante();
-        this.repositorioEquipamento = new RepositorioEquipamento();
-        this.repositorioChamado = new RepositorioChamado();
+        this.contexto = new ContextoDados();
+        this.repositorioFabricante = new RepositorioFabricante(contexto);
+        this.repositorioEquipamento = new RepositorioEquipamento(contexto);
+        this.repositorioChamado = new RepositorioChamado(contexto);
     }
 
     public void ApresentarMenuPrincipal()
@@ -29,9 +31,9 @@ public class TelaPrincipal
 
         Console.WriteLine();
 
-        Console.WriteLine("1 - Controle de Equipamentos");
-        Console.WriteLine("2 - Controle de Chamados");
-        Console.WriteLine("3 - Controle de Fabricantes");
+        Console.WriteLine("1 - Controle de Fabricantes");
+        Console.WriteLine("2 - Controle de Equipamentos");
+        Console.WriteLine("3 - Controle de Chamados");
         Console.WriteLine("S - Sair");
 
         Console.WriteLine();

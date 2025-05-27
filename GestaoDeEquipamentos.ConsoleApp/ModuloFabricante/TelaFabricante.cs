@@ -40,6 +40,8 @@ public class TelaFabricante : TelaBase<Fabricante>, ITelaCrud
                f.Id, f.Nome, f.Email, f.Telefone, f.QuantidadeEquipamentos
             );
         }
+
+        Console.ReadLine();
     }
 
     public override Fabricante ObterDados()
