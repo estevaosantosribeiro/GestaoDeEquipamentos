@@ -10,18 +10,9 @@
 
   <ItemGroup>
     <Compile Remove="ModuloFabricante\NewFolder1\**" />
-    <Compile Remove="NewFolder\**" />
     <Content Remove="ModuloFabricante\NewFolder1\**" />
-    <Content Remove="NewFolder\**" />
     <EmbeddedResource Remove="ModuloFabricante\NewFolder1\**" />
-    <EmbeddedResource Remove="NewFolder\**" />
     <None Remove="ModuloFabricante\NewFolder1\**" />
-    <None Remove="NewFolder\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Views\" />
   </ItemGroup>
 
 </Project>
