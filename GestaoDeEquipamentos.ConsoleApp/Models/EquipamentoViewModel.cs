@@ -13,7 +13,9 @@ public abstract class FormularioEquipamentoViewModel
 
     public List<SelecionarFabricanteViewModel> FabricantesDisponiveis { get; set; }
 
+    #pragma warning disable CS8618
     protected FormularioEquipamentoViewModel()
+    #pragma warning restore CS8618
     {
         FabricantesDisponiveis = new List<SelecionarFabricanteViewModel>();
     }

@@ -43,7 +43,9 @@ public class ExcluirFabricanteViewModel
     public int Id { get; set; }
     public string Nome { get; set; }
 
+    #pragma warning disable CS8618
     public ExcluirFabricanteViewModel() { }
+    #pragma warning restore CS8618
 
     public ExcluirFabricanteViewModel(int id, string nome) : this()
     {
