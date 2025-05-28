@@ -2,4 +2,4 @@
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
-internal interface IRepositorioEquipamento : IRepositorio<Equipamento>;
+public interface IRepositorioEquipamento : IRepositorio<Equipamento>;

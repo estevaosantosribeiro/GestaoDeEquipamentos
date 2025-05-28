@@ -2,15 +2,15 @@
 using GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
 
-namespace GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
-
 public class Equipamento : EntidadeBase<Equipamento>
 {
     public string Nome { get; set; }
     public Fabricante Fabricante { get; set; }
     public decimal PrecoAquisicao { get; set; }
     public DateTime DataFabricacao { get; set; }
+
     public List<Chamado> Chamados { get; set; }
+
     public string NumeroSerie
     {
         get
@@ -26,12 +26,12 @@ public class Equipamento : EntidadeBase<Equipamento>
         Chamados = new List<Chamado>();
     }
 
-    public Equipamento(string nome, Fabricante fabricante, decimal precoAquisicao, DateTime dataFabricacao) : this()
+    public Equipamento(string nome, decimal precoAquisicao, DateTime dataFabricacao, Fabricante fabricante) : this()
     {
         Nome = nome;
-        Fabricante = fabricante;
         PrecoAquisicao = precoAquisicao;
         DataFabricacao = dataFabricacao;
+        Fabricante = fabricante;
     }
 
     public void AdicionarChamado(Chamado chamado)
@@ -46,11 +46,11 @@ public class Equipamento : EntidadeBase<Equipamento>
             Chamados.Remove(chamado);
     }
 
-    public override void AtualizarRegistro(Equipamento registroEditado)
+    public override void AtualizarRegistro(Equipamento equipamentoAtualizado)
     {
-        Nome = registroEditado.Nome;
-        Fabricante = registroEditado.Fabricante;
-        PrecoAquisicao = registroEditado.PrecoAquisicao;
+        Nome = equipamentoAtualizado.Nome;
+        DataFabricacao = equipamentoAtualizado.DataFabricacao;
+        PrecoAquisicao = equipamentoAtualizado.PrecoAquisicao;
     }
 
     public override string Validar()

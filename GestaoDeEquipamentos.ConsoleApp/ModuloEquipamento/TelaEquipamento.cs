@@ -1,20 +1,16 @@
-﻿using System.Collections;
-using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
 using GestaoDeEquipamentos.ConsoleApp.Util;
-using Microsoft.Win32;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
 public class TelaEquipamento : TelaBase<Equipamento>, ITelaCrud
 {
-    public RepositorioEquipamento repositorioEquipamento;
-    public RepositorioFabricante repositorioFabricante;
+    public IRepositorioEquipamento repositorioEquipamento;
+    public IRepositorioFabricante repositorioFabricante;
 
-    public TelaEquipamento(
-        RepositorioEquipamento repositorioEquipamento, 
-        RepositorioFabricante repositorioFabricante
-    ) : base("Equipamento", repositorioEquipamento)
+    public TelaEquipamento(IRepositorioEquipamento repositorioEquipamento, IRepositorioFabricante repositorioFabricante)
+        : base("Equipamento", repositorioEquipamento)
     {
         this.repositorioEquipamento = repositorioEquipamento;
         this.repositorioFabricante = repositorioFabricante;
@@ -26,8 +22,8 @@ public class TelaEquipamento : TelaBase<Equipamento>, ITelaCrud
 
         Console.WriteLine();
 
-        Console.WriteLine("Cadastrando equipamento...");
-        Console.WriteLine("---------------------------------------------");
+        Console.WriteLine("Cadastrando Equipamento...");
+        Console.WriteLine("--------------------------------------------");
 
         Console.WriteLine();
 
@@ -50,7 +46,7 @@ public class TelaEquipamento : TelaBase<Equipamento>, ITelaCrud
 
         repositorioEquipamento.CadastrarRegistro(novoEquipamento);
 
-        Notificador.ExibirMensagem("O registro foi concluído com sucesso", ConsoleColor.Green);
+        Notificador.ExibirMensagem("O registro foi concluído com sucesso!", ConsoleColor.Green);
     }
 
     public override void EditarRegistro()
@@ -59,8 +55,8 @@ public class TelaEquipamento : TelaBase<Equipamento>, ITelaCrud
 
         Console.WriteLine();
 
-        Console.WriteLine("Editando equipamento...");
-        Console.WriteLine("---------------------------------------------");
+        Console.WriteLine("Editando Equipamento...");
+        Console.WriteLine("--------------------------------------------");
 
         VisualizarRegistros(false);
 
@@ -103,15 +99,18 @@ public class TelaEquipamento : TelaBase<Equipamento>, ITelaCrud
             return;
         }
 
-        Notificador.ExibirMensagem("O equipamento foi editado com sucesso!", ConsoleColor.Green);
+
+        Notificador.ExibirMensagem("O registro foi editado com sucesso!", ConsoleColor.Green);
     }
 
     public override void ExcluirRegistro()
     {
         ExibirCabecalho();
 
-        Console.WriteLine("Excluindo equipamentos...");
-        Console.WriteLine("---------------------------------------------");
+        Console.WriteLine();
+
+        Console.WriteLine("Excluindo Equipamento...");
+        Console.WriteLine("--------------------------------------------");
 
         VisualizarRegistros(false);
 
@@ -133,33 +132,7 @@ public class TelaEquipamento : TelaBase<Equipamento>, ITelaCrud
             return;
         }
 
-        Notificador.ExibirMensagem("O equipamento foi excluído com sucesso!", ConsoleColor.Green);
-    }
-
-    public void VisualizarFabricantes()
-    {
-        Console.WriteLine("Visualizando Fabricantes...");
-        Console.WriteLine("----------------------------------------------");
-
-        Console.WriteLine();
-
-        Console.WriteLine(
-            "{0, -6} | {1, -15} | {2, -20} | {3, -15} | {3, -25}",
-            "Id", "Nome", "E-mail", "Telefone", "Quantidade de Equipamentos"
-        );
-
-        List<Fabricante> registros = repositorioFabricante.SelecionarRegistros();
-
-        foreach (var f in registros)
-        {
-            Console.WriteLine(
-               "{0, -6} | {1, -15} | {2, -20} | {3, -15} | {3, -6}",
-               f.Id, f.Nome, f.Email, f.Telefone, f.QuantidadeEquipamentos
-            );
-        }
-
-        Console.WriteLine();
-
+        Notificador.ExibirMensagem("O registro foi excluído com sucesso!", ConsoleColor.Green);
     }
 
     public override void VisualizarRegistros(bool exibirTitulo)
@@ -169,8 +142,10 @@ public class TelaEquipamento : TelaBase<Equipamento>, ITelaCrud
 
         Console.WriteLine();
 
-        Console.WriteLine("Visualizando equipamentos...");
-        Console.WriteLine("---------------------------------------------");
+        Console.WriteLine("Visualizando Equipamentos...");
+        Console.WriteLine("--------------------------------------------");
+
+        Console.WriteLine();
 
         Console.WriteLine(
             "{0, -10} | {1, -15} | {2, -11} | {3, -15} | {4, -15} | {5, -10}",
@@ -182,12 +157,14 @@ public class TelaEquipamento : TelaBase<Equipamento>, ITelaCrud
         foreach (var e in registros)
         {
             Console.WriteLine(
-               "{0, -10} | {1, -15} | {2, -11} | {3, -15} | {4, -15} | {5, -10}",
-               e.Id, e.Nome, e.NumeroSerie, e.Fabricante.Nome, e.PrecoAquisicao.ToString("C2"), e.DataFabricacao.ToShortDateString()
+                "{0, -10} | {1, -15} | {2, -11} | {3, -15} | {4, -15} | {5, -10}",
+                e.Id, e.Nome, e.NumeroSerie, e.Fabricante.Nome, e.PrecoAquisicao.ToString("C2"), e.DataFabricacao.ToShortDateString()
             );
         }
 
         Console.WriteLine();
+
+        Notificador.ExibirMensagem("Pressione ENTER para continuar...", ConsoleColor.DarkYellow);
     }
 
     public override Equipamento ObterDados()
@@ -195,26 +172,56 @@ public class TelaEquipamento : TelaBase<Equipamento>, ITelaCrud
         Console.Write("Digite o nome do equipamento: ");
         string nome = Console.ReadLine()!;
 
-        Console.Write("Digite o preço de aquisição: R$ ");
+        Console.Write("Digite o preço de aquisição R$ ");
         decimal precoAquisicao = Convert.ToDecimal(Console.ReadLine());
 
-        Console.Write("Digite a data de fabricação do equipamento: (dd/MM/yyyy) ");
+        Console.Write("Digite a data de fabricação do equipamento (dd/MM/yyyy) ");
         DateTime dataFabricacao = Convert.ToDateTime(Console.ReadLine());
 
         VisualizarFabricantes();
 
-        Console.Write("Digite o ID do registro que deseja selecionar: ");
-        int idFabricante = Convert.ToInt32(Console.ReadLine()!);
+        Console.Write("Digite o id do registro que deseja selecionar: ");
+        int idFabricante = Convert.ToInt32(Console.ReadLine());
 
         Fabricante fabricanteSelecionado = repositorioFabricante.SelecionarRegistroPorId(idFabricante);
 
         Equipamento equipamento = new Equipamento(
-            nome, 
-            fabricanteSelecionado,
-            precoAquisicao, 
-            dataFabricacao
+            nome,
+            precoAquisicao,
+            dataFabricacao,
+            fabricanteSelecionado
         );
 
         return equipamento;
     }
+
+    public void VisualizarFabricantes()
+    {
+        Console.WriteLine();
+
+        Console.WriteLine("Visualizando Fabricantes...");
+        Console.WriteLine("----------------------------------------");
+
+        Console.WriteLine();
+
+        Console.WriteLine(
+            "{0, -6} | {1, -20} | {2, -30} | {3, -30} | {4, -20}",
+            "Id", "Nome", "Email", "Telefone", "Qtd. Equipamentos"
+        );
+
+        List<Fabricante> registros = repositorioFabricante.SelecionarRegistros();
+
+        foreach (var f in registros)
+        {
+            Console.WriteLine(
+                "{0, -6} | {1, -20} | {2, -30} | {3, -30} | {4, -20}",
+                f.Id, f.Nome, f.Email, f.Telefone, f.QuantidadeEquipamentos
+           );
+        }
+
+        Console.WriteLine();
+
+        Notificador.ExibirMensagem("Pressione ENTER para continuar...", ConsoleColor.DarkYellow);
+    }
+
 }

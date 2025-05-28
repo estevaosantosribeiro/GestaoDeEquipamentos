@@ -1,20 +1,50 @@
 <!DOCTYPE html>
 <html>
-<!--Cont�m metadados (dados sobre os dados) do HTML-->
 <head>
     <meta charset="utf-8" />
-    <title>Gestao de Equipamentos</title>
+    <title>Gestão de Equipamentos</title>
 </head>
-
-<!--Cont�m o conte�do do HTML-->
 <body>
-    <h1>Gestao de Equipamentos</h1>
+    <nav>
+        <h2>Gestão de Equipamentos</h2>
 
-    <h3>Fabricantes</h3>
+        <ul>
+            <li><a class="link-navegacao" href="/">Página Inicial</a></li>
+            <li><a class="link-navegacao" href="/fabricantes/visualizar">Fabricantes</a></li>
+            <li><a class="link-navegacao" href="/equipamentos/visualizar">Equipamentos</a></li>
+            <li><a class="link-navegacao" href="/chamados/visualizar">Chamados</a></li>
+        </ul>
+    </nav>
 
-    <ul>
-        <li><a href="/fabricantes/cadastrar">Cadastrar Novo Fabricante</a></li>
-        <li><a href="/fabricantes/visualizar">Visualizar Fabricantes</a></li>
-    </ul>
+    <header>
+        <h3>Página Inicial</h3>
+    </header>
+
+    <main>
+        <a href="/fabricantes/visualizar">
+            <div class="card">
+                <h3>Fabricantes</h3>
+
+                <p>Gerencie os Fabricantes de Equipamentos</p>
+            </div>
+        </a>
+
+        <a href="/equipamentos/visualizar">
+            <div class="card">
+                <h3>Equipamentos</h3>
+
+                <p>Gerencie os Equipamentos</p>
+            </div>
+        </a>
+
+        <a href="/chamados/visualizar">
+            <div class="card">
+                <h3>Chamados</h3>
+
+                <p>Gerencie os Chamados de Manutenção</p>
+            </div>
+        </a>
+
+    </main>
 </body>
 </html>
