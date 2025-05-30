@@ -1,45 +1,36 @@
 ﻿@using GestaoDeEquipamentos.ConsoleApp.Models
-
 @model CadastrarFabricanteViewModel;
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Cadastro de Fabricante - Gestão de Equipamentos</title>
-</head>
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Cadastro de Fabricante";
+}
 
-<body>
-    <h1>Gestão de Equipamentos</h1>
+<link href="~/formulario.css" rel="stylesheet" />
 
-    <hr />
+<div class="form-header">
+    <a href="/fabricantes/visualizar" class="btn-voltar">
+        <i class="bi bi-arrow-left"></i> Voltar
+    </a>
+</div>
 
-    <a href="/">Página Inicial</a> /
-    <a href="/fabricantes/visualizar">Visualizar Fabricantes</a>
+<form action="/fabricantes/cadastrar" method="post" class="formulario-base">
+    <div class="form-group">
+        <label for="Nome">Nome do Fabricante</label>
+        <input type="text" name="Nome" id="Nome" required />
+    </div>
 
-    <hr />
+    <div class="form-group">
+        <label for="Email">Email do Fabricante</label>
+        <input type="email" name="Email" id="Email" required />
+    </div>
 
-    <h3>Cadastro de Fabricante</h3>
+    <div class="form-group">
+        <label for="Telefone">Telefone do Fabricante</label>
+        <input type="text" name="Telefone" id="Telefone" required />
+    </div>
 
-    <form action="/fabricantes/cadastrar" method="post">
-        <label>Nome do Fabricante:</label>
-        <br />
-        <input type="text" name="nome" />
-
-        <br />
-
-        <label>Email do Fabricante:</label>
-        <br />
-        <input type="text" name="email" />
-
-        <br />
-
-        <label>Telefone do Fabricante:</label>
-        <br />
-        <input type="text" name="telefone" />
-        <hr />
-
-        <button type="submit">Gravar</button>
-    </form>
-</body>
-</html>
+    <div class="form-actions">
+        <button type="submit" class="btn-salvar">Gravar</button>
+    </div>
+</form>

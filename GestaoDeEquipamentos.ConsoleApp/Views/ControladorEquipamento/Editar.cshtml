@@ -2,57 +2,46 @@
 
 @model EditarEquipamentoViewModel;
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Edição de Equipamento - Gestão de Equipamentos</title>
-</head>
+@{
+	Layout = "_Layout";
+	ViewBag.Titulo = "Edição de Equipamento";
+}
 
-<body>
-    <h1>Gestão de Equipamentos</h1>
+<link href="~/formulario.css" rel="stylesheet" />
 
-    <hr />
+<div class="form-header">
+    <a href="/equipamentos/visualizar" class="btn-voltar">
+        <i class="bi bi-arrow-left"></i> Voltar
+    </a>
+</div>
 
-    <a href="/">Página Inicial</a> /
-    <a href="/equipamentos/visualizar">Visualizar Equipamentos</a>
+<form action="/equipamentos/editar/@Model.Id" method="post" class="formulario-base">
+    <div class="form-group">
+        <label for="Nome">Nome do Equipamento</label>
+        <input type="text" name="Nome" id="Nome" value="@Model.Nome" required />
+    </div>
 
-    <hr />
-
-    <h3>Edição de Equipamento</h3>
-
-    <form action="/equipamentos/editar/@Model.Id" method="post">
-
-        <label for="Nome">Nome do Equipamento:</label>
-        <br />
-        <input type="text" name="Nome" id="Nome" value="@Model.Nome" />
-
-        <br />
-
+    <div class="form-group">
         <label for="PrecoAquisicao">Preço de Aquisição do Equipamento:</label>
-        <br />
-        <input type="text" name="PrecoAquisicao" id="PrecoAquisicao" value="@Model.PrecoAquisicao" />
+        <input type="text" name="PrecoAquisicao" id="PrecoAquisicao" value="@Model.PrecoAquisicao" required />
+    </div>
 
-        <br />
-
+    <div class="form-group">
         <label for="DataFabricacao">Data de Fabricação do Equipamento:</label>
-        <br />
-        <input type="date" name="DataFabricacao" id="DataFabricacao" value="@Model.DataFabricacao.ToString("yyyy-MM-dd")" />
+        <input type="date" name="DataFabricacao" id="DataFabricacao" value="@Model.DataFabricacao.ToString("yyyy-MM-dd")" required />
+    </div>
 
-        <br />
-
+    <div class="form-group">
         <label for="FabricanteId">Fabricante do Equipamento:</label>
-        <br />
         <select name="FabricanteId" id="FabricanteId">
             @foreach (var fabricante in Model.FabricantesDisponiveis)
             {
                 <option value="@fabricante.Id" @(fabricante.Id == Model.FabricanteId ? "selected" : "")>@fabricante.Nome</option>
             }
         </select>
+    </div>
 
-        <hr />
-
-        <button type="submit">Gravar</button>
-    </form>
-</body>
-</html>
+    <div class="form-actions">
+        <button type="submit" class="btn-salvar">Gravar</button>
+    </div>
+</form>

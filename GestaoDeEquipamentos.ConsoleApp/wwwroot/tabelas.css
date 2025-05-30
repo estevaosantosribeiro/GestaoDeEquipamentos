@@ -1,0 +1,104 @@
+﻿.tabela-registros {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+    font-family: 'Poppins', sans-serif;
+    margin-top: 1.5rem;
+}
+
+    .tabela-registros thead {
+        background-color: #f3f3f3;
+        text-align: left;
+    }
+
+    .tabela-registros th,
+    .tabela-registros td {
+        padding: 1rem 1.2rem;
+        border-bottom: 1px solid #eee;
+        font-size: 0.95rem;
+    }
+
+    .tabela-registros tbody tr:hover {
+        background-color: #f9f9f9;
+    }
+
+    .tabela-registros th {
+        font-weight: 600;
+        color: #0e0d0d;
+    }
+
+    .tabela-registros td {
+        color: #333;
+    }
+
+.btn-acao {
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    margin-right: 0.5rem;
+    transition: all 0.2s ease-in-out;
+}
+
+    .btn-acao.editar {
+        background-color: #8b32f4;
+        color: white;
+    }
+
+        .btn-acao.editar:hover {
+            background-color: #5320ab;
+        }
+
+    .btn-acao.excluir {
+        background-color: #e74c3c;
+        color: white;
+    }
+
+        .btn-acao.excluir:hover {
+            background-color: #c0392b;
+        }
+
+.cabecalho-tabela {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+}
+
+    .cabecalho-tabela h2 {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: #0e0d0d;
+        margin: 0;
+    }
+
+.btn-adicionar {
+    background-color: #8b32f4;
+    color: white;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+}
+
+    .btn-adicionar:hover {
+        background-color: #5320ab;
+    }
+
+.tabela-registros td.acoes a {
+    margin-right: 0.5rem;
+    color: #555;
+    font-size: 1.8rem;
+    transition: color 0.2s ease;
+}
+
+    .tabela-registros td.acoes a:hover {
+        color: #8b32f4;
+    }

@@ -2,12 +2,12 @@
 
 public class NotificacaoViewModel
 {
-    public string TituloPagina { get; set; }
+    public string Titulo { get; set; }
     public string Mensagem { get; set; }
 
-    public NotificacaoViewModel(string tituloPagina, string mensagem)
+    public NotificacaoViewModel(string titulo, string mensagem)
     {
-        TituloPagina = tituloPagina;
+        Titulo = titulo;
         Mensagem = mensagem;
     }
 }

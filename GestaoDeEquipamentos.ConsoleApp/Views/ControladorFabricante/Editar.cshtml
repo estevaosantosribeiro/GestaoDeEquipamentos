@@ -3,45 +3,36 @@
 
 @model EditarFabricanteViewModel;
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Edição de Fabricante - Gestão de Equipamentos</title>
-</head>
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Edição de Fabricante";
+}
 
-<body>
-    <h1>Gestão de Equipamentos</h1>
+<link href="~/formulario.css" rel="stylesheet" />
 
-    <hr />
+<div class="form-header">
+    <a href="/fabricantes/visualizar" class="btn-voltar">
+        <i class="bi bi-arrow-left"></i> Voltar
+    </a>
+</div>
 
-    <a href="/">Página Inicial</a> /
-    <a href="/fabricantes/cadastrar">Cadastrar Novo Fabricante</a> /
-    <a href="/fabricantes/visualizar">Visualizar Fabricantes</a>
+<form action="/fabricantes/editar/@Model.Id" method="post" class="formulario-base">
+    <div class="form-group">
+        <label for="nome">Nome do Fabricante</label>
+        <input type="text" name="nome" id="nome" value="@Model.Nome" required />
+    </div>
 
-    <hr />
+    <div class="form-group">
+        <label for="email">Email do Fabricante</label>
+        <input type="email" name="email" id="email" value="@Model.Email" required />
+    </div>
 
-    <h3>Edição de Fabricante</h3>
+    <div class="form-group">
+        <label for="telefone">Telefone do Fabricante</label>
+        <input type="text" name="telefone" id="telefone" value="@Model.Telefone" required />
+    </div>
 
-    <form action="/fabricantes/editar/@Model.Id" method="post">
-        <label>Nome do Fabricante:</label>
-        <br />
-        <input type="text" name="nome" value="@Model.Nome" />
-
-        <br />
-
-        <label>Email do Fabricante:</label>
-        <br />
-        <input type="text" name="email" value="@Model.Email" />
-
-        <br />
-
-        <label>Telefone do Fabricante: </label>
-        <br />
-        <input type="text" name="telefone" value="@Model.Telefone" />
-        <hr />
-
-        <button type="submit">Gravar</button>
-    </form>
-</body>
-</html>
+    <div class="form-actions">
+        <button type="submit" class="btn-salvar">Gravar</button>
+    </div>
+</form>

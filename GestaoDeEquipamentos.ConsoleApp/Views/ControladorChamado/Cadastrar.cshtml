@@ -1,52 +1,42 @@
-﻿﻿@using GestaoDeEquipamentos.ConsoleApp.Models;
+﻿@using GestaoDeEquipamentos.ConsoleApp.Models
 
 @model CadastrarChamadoViewModel;
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Cadastro de Chamado - Gestão de Equipamentos</title>
-</head>
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Cadastro de Chamado";
+}
 
-<body>
-    <h1>Gestão de Equipamentos</h1>
+<link href="~/formulario.css" rel="stylesheet" />
 
-    <hr />
+<div class="form-header">
+    <a href="/chamados/visualizar" class="btn-voltar">
+        <i class="bi bi-arrow-left"></i> Voltar
+    </a>
+</div>
 
-    <a href="/">Página Inicial</a> /
-    <a href="/chamados/visualizar">Visualizar Chamados</a>
-
-    <hr />
-
-    <h3>Cadastro de Chamado</h3>
-
-    <form action="/chamados/cadastrar" method="post">
-
+<form action="/chamados/cadastrar" method="post" class="formulario-base">
+    <div class="form-group">
         <label for="Titulo">Título do Chamado:</label>
-        <br />
-        <input type="text" name="Titulo" id="Titulo" />
+        <input type="text" name="Titulo" id="Titulo" required />
+    </div>
 
-        <br />
-
+    <div class="form-group">
         <label for="Descricao">Descrição do Chamado:</label>
-        <br />
         <textarea name="Descricao" id="Descricao"></textarea>
+    </div>
 
-        <br />
-
+    <div class="form-group">
         <label for="EquipamentoId">Equipamento do Chamado:</label>
-        <br />
         <select name="EquipamentoId" id="EquipamentoId">
             @foreach (var equipamento in Model.EquipamentosDisponiveis)
             {
                 <option value="@equipamento.Id">@equipamento.Nome</option>
             }
         </select>
+    </div>
 
-        <hr />
-
-        <button type="submit">Gravar</button>
-    </form>
-</body>
-</html>
+    <div class="form-actions">
+        <button type="submit" class="btn-salvar">Gravar</button>
+    </div>
+</form>

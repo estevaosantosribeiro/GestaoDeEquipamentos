@@ -3,44 +3,43 @@
 
 @model VisualizarFabricantesViewModel;
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Visualização de Fabricantes - Gestão de Equipamentos</title>
-</head>
+@{
+	Layout = "_Layout";
+	ViewBag.Titulo = "Visualização de Fabricantes";
+}
 
-<body>
-    <nav>
-        <h2>Gestão de Equipamentos</h2>
+<link href="~/tabelas.css" rel="stylesheet" />
 
-        <ul>
-            <li><a class="link-navegacao" href="/">Página Inicial</a></li>
-            <li><a class="link-navegacao" href="/fabricantes/visualizar">Fabricantes</a></li>
-            <li><a class="link-navegacao" href="/equipamentos/visualizar">Equipamentos</a></li>
-            <li><a class="link-navegacao" href="/chamados/visualizar">Chamados</a></li>
-        </ul>
-    </nav>
+<div class="cabecalho-tabela">
+    <h2>Fabricantes</h2>
+    <a href="/fabricantes/cadastrar" class="btn-adicionar">+ Adicionar Fabricante</a>
+</div>
 
-    <header>
-        <h3>Visualização de Fabricantes</h3>
-    </header>
-
-    <main>
+<table class="tabela-registros">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
         @foreach (DetalhesFabricanteViewModel f in Model.Registros)
         {
-            <div class="card">
-                <h3>@f.Nome</h3>
-
-                <p><strong>Email:</strong> @f.Email</p>
-                <p><strong>Telefone:</strong> @f.Telefone</p>
-
-                <div class="botoes-interacao">
-                    <a type="button" href="/fabricantes/editar/@f.Id">Editar</a>
-                    <a type="button" href="/fabricantes/excluir/@f.Id">Excluir</a>
-                </div>
-            </div>
+            <tr>
+                <td>@f.Nome</td>
+                <td>@f.Email</td>
+                <td>@f.Telefone</td>
+                <td class="acoes">
+                    <a href="/fabricantes/editar/@f.Id" style="text-decoration: none;" title="Editar">
+                        <i class="bi bi-pencil-square" style="color: #f0b400;"></i>
+                    </a>
+                    <a href="/fabricantes/excluir/@f.Id" title="Excluir">
+                        <i class="bi bi-trash" style="color: #e63946;"></i>
+                    </a>
+                </td>
+            </tr>
         }
-    </main>
-</body>
-</html>
+    </tbody>
+</table>

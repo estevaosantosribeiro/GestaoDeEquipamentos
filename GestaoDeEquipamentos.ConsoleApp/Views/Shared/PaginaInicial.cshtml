@@ -1,50 +1,35 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Gestão de Equipamentos</title>
-</head>
-<body>
-    <nav>
-        <h2>Gestão de Equipamentos</h2>
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Página Inicial";
+}
 
-        <ul>
-            <li><a class="link-navegacao" href="/">Página Inicial</a></li>
-            <li><a class="link-navegacao" href="/fabricantes/visualizar">Fabricantes</a></li>
-            <li><a class="link-navegacao" href="/equipamentos/visualizar">Equipamentos</a></li>
-            <li><a class="link-navegacao" href="/chamados/visualizar">Chamados</a></li>
-        </ul>
-    </nav>
+<link href="~/listas.css" rel="stylesheet" />
 
-    <header>
-        <h3>Página Inicial</h3>
-    </header>
+<div class="lista-secao">
+    <a href="/fabricantes/visualizar" class="lista-item">
+        <img src="~/Imagens/fabricantes.jpg" alt="Fabricantes" class="lista-imagem" />
+        <div class="lista-conteudo">
+            <h3 class="lista-titulo">Fabricantes</h3>
+            <p class="lista-descricao">Gerencie os Fabricantes de Equipamentos</p>
+        </div>
+        <i class="bi bi-chevron-right lista-icone"></i>
+    </a>
 
-    <main>
-        <a href="/fabricantes/visualizar">
-            <div class="card">
-                <h3>Fabricantes</h3>
+    <a href="/equipamentos/visualizar" class="lista-item">
+        <img src="~/Imagens/equipamentos.jpg" alt="Equipamentos" class="lista-imagem" />
+        <div class="lista-conteudo">
+            <h3 class="lista-titulo">Equipamentos</h3>
+            <p class="lista-descricao">Gerencie os Equipamentos</p>
+        </div>
+        <i class="bi bi-chevron-right lista-icone"></i>
+    </a>
 
-                <p>Gerencie os Fabricantes de Equipamentos</p>
-            </div>
-        </a>
-
-        <a href="/equipamentos/visualizar">
-            <div class="card">
-                <h3>Equipamentos</h3>
-
-                <p>Gerencie os Equipamentos</p>
-            </div>
-        </a>
-
-        <a href="/chamados/visualizar">
-            <div class="card">
-                <h3>Chamados</h3>
-
-                <p>Gerencie os Chamados de Manutenção</p>
-            </div>
-        </a>
-
-    </main>
-</body>
-</html>
+    <a href="/chamados/visualizar" class="lista-item">
+        <img src="~/Imagens/chamados.jpg" alt="Chamados" class="lista-imagem" />
+        <div class="lista-conteudo">
+            <h3 class="lista-titulo">Chamados</h3>
+            <p class="lista-descricao">Gerencie os Chamados de Manutenção</p>
+        </div>
+        <i class="bi bi-chevron-right lista-icone"></i>
+    </a>
+</div>

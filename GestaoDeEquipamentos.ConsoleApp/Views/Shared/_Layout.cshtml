@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="Sistema de gestão de equipamentos" />
+
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<link rel="stylesheet" href="~/app.css" />
+
+	<title>@ViewBag.Titulo - Gestão de Equipamentos</title>
+</head>
+<body>
+	<nav class="sidebar">
+		<h2 class="logo">Gestão de Equipamentos</h2>
+		<ul>
+			<li>
+				<a class="link-navegacao" href="/">
+					<i class="bi bi-house icon"></i> Página Inicial
+				</a>
+			</li>
+			<li>
+				<a class="link-navegacao" href="/fabricantes/visualizar">
+					<i class="bi bi-buildings icon"></i> Fabricantes
+				</a>
+			</li>
+			<li>
+				<a class="link-navegacao" href="/equipamentos/visualizar">
+					<i class="bi bi-cpu icon"></i> Equipamentos
+				</a>
+			</li>
+			<li>
+				<a class="link-navegacao" href="/chamados/visualizar">
+					<i class="bi bi-tools icon"></i> Chamados
+				</a>
+			</li>
+		</ul>
+	</nav>
+
+	<div>
+		<header class="topbar">
+			<div class="page-title">@ViewBag.Titulo</div>
+			<div class="search-container">
+				<input type="text" placeholder="Pesquisar..." class="search-input" />
+			</div>
+		</header>
+
+		<main>
+			@RenderBody()
+		</main>
+	</div>
+</body>
+</html>

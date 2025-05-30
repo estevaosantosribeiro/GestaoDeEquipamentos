@@ -1,34 +1,48 @@
-﻿﻿@using GestaoDeEquipamentos.ConsoleApp.Models;
+﻿@using GestaoDeEquipamentos.ConsoleApp.Models
 
 @model VisualizarChamadosViewModel;
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Visualização de Chamados - Gestão de Equipamentos</title>
-</head>
+@{
+	Layout = "_Layout";
+	ViewBag.Titulo = "Visualização de Chamados";
+}
 
-<body>
-    <h1>Gestão de Equipamentos</h1>
+<link href="~/tabelas.css" rel="stylesheet" />
 
-    <hr />
+<div class="cabecalho-tabela">
+    <h2>Chamados</h2>
+    <a href="/chamados/cadastrar" class="btn-adicionar">+ Adicionar Chamado</a>
+</div>
 
-    <a href="/">Página Inicial</a> /
-    <a href="/chamados/cadastrar">Cadastrar Novo Chamado</a> /
-
-    <hr />
-
-    <h3>Visualização de Chamados</h3>
-
-    <ul>
-        @foreach (var e in Model.Registros)
+<table class="tabela-registros">
+    <thead>
+        <tr>
+            <th>Equipamento</th>
+            <th>Título</th>
+            <th>Descrição</th>
+            <th>Data de Abertura</th>
+            <th>Dias em Aberto</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var c in Model.Registros)
         {
-            <li>
-                @e.ToString() / <a href="/chamados/editar/@e.Id">Editar</a> /
-                <a href="/chamados/excluir/@e.Id">Excluir</a>
-            </li>
+            <tr>
+                <td>@c.NomeEquipamento</td>
+                <td>@c.Titulo</td>
+                <td>@c.Descricao</td>
+                <td>@c.DataAbertura.ToShortDateString()</td>
+                <td>@c.TempoDecorrido dias</td>
+                <td class="acoes">
+                    <a href="/chamados/editar/@c.Id" style="text-decoration: none;" title="Editar">
+                        <i class="bi bi-pencil-square" style="color: #f0b400;"></i>
+                    </a>
+                    <a href="/chamados/excluir/@c.Id" title="Excluir">
+                        <i class="bi bi-trash" style="color: #e63946;"></i>
+                    </a>
+                </td>
+            </tr>
         }
-    </ul>
-</body>
-</html>
+    </tbody>
+</table>

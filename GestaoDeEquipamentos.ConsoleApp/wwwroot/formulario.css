@@ -1,0 +1,73 @@
+﻿.form-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 1.5rem;
+}
+
+.btn-voltar {
+    text-decoration: none;
+    color: #5320ab;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.2s ease;
+}
+
+    .btn-voltar i {
+        margin-right: 4px;
+        font-size: 1.1rem;
+    }
+
+    .btn-voltar:hover {
+        color: #8b32f4;
+    }
+
+.formulario-base {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+}
+
+    .formulario-base .form-group {
+        margin-bottom: 1.2rem;
+    }
+
+    .formulario-base label {
+        display: block;
+        margin-bottom: 0.4rem;
+        font-weight: 500;
+        color: #0e0d0d;
+    }
+
+    .formulario-base input, textarea, select {
+        width: 100%;
+        padding: 0.6rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 0.5rem;
+        outline-color: #8b32f4;
+        background-color: white;
+    }
+
+.form-actions {
+    text-align: right;
+}
+
+.btn-salvar {
+    background-color: #8b32f4;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.4rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-salvar:hover {
+        background-color: #5320ab;
+    }
