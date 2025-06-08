@@ -8,41 +8,51 @@
 }
 
 <link href="~/tabelas.css" rel="stylesheet" />
+<link href="~/mensagem.css" rel="stylesheet" />
 
 <div class="cabecalho-tabela">
-    <h2>Chamados</h2>
-    <a href="/chamados/cadastrar" class="btn-adicionar">+ Adicionar Chamado</a>
+	<h2>Chamados</h2>
+	<a href="/chamados/cadastrar" class="btn-adicionar">+ Adicionar Chamado</a>
 </div>
 
-<table class="tabela-registros">
-    <thead>
-        <tr>
-            <th>Equipamento</th>
-            <th>Título</th>
-            <th>Descrição</th>
-            <th>Data de Abertura</th>
-            <th>Dias em Aberto</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var c in Model.Registros)
-        {
-            <tr>
-                <td>@c.NomeEquipamento</td>
-                <td>@c.Titulo</td>
-                <td>@c.Descricao</td>
-                <td>@c.DataAbertura.ToShortDateString()</td>
-                <td>@c.TempoDecorrido dias</td>
-                <td class="acoes">
-                    <a href="/chamados/editar/@c.Id" style="text-decoration: none;" title="Editar">
-                        <i class="bi bi-pencil-square" style="color: #f0b400;"></i>
-                    </a>
-                    <a href="/chamados/excluir/@c.Id" title="Excluir">
-                        <i class="bi bi-trash" style="color: #e63946;"></i>
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+@if (!Model.Registros.Any())
+{
+	<div class="mensagem-vazia">
+		Nenhum registro encontrado.
+	</div>
+}
+else
+{
+	<table class="tabela-registros">
+		<thead>
+			<tr>
+				<th>Equipamento</th>
+				<th>Título</th>
+				<th>Descrição</th>
+				<th>Data de Abertura</th>
+				<th>Dias em Aberto</th>
+				<th>Ações</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var c in Model.Registros)
+			{
+				<tr>
+					<td>@c.NomeEquipamento</td>
+					<td>@c.Titulo</td>
+					<td class="descricao">@c.Descricao</td>
+					<td>@c.DataAbertura.ToShortDateString()</td>
+					<td>@c.TempoDecorrido dias</td>
+					<td class="acoes">
+						<a href="/chamados/editar/@c.Id" style="text-decoration: none;" title="Editar">
+							<i class="bi bi-pencil-square" style="color: #f0b400;"></i>
+						</a>
+						<a href="/chamados/excluir/@c.Id" title="Excluir">
+							<i class="bi bi-trash" style="color: #e63946;"></i>
+						</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}

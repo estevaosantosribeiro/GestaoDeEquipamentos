@@ -8,39 +8,49 @@
 }
 
 <link href="~/tabelas.css" rel="stylesheet" />
+<link href="~/mensagem.css" rel="stylesheet" />
 
 <div class="cabecalho-tabela">
-    <h2>Equipamentos</h2>
-    <a href="/equipamentos/cadastrar" class="btn-adicionar">+ Adicionar Chamado</a>
+	<h2>Equipamentos</h2>
+	<a href="/equipamentos/cadastrar" class="btn-adicionar">+ Adicionar Chamado</a>
 </div>
 
-<table class="tabela-registros">
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Fabricante</th>
-            <th>Preço</th>
-            <th>Data de Fabricação</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var e in Model.Registros)
-        {
-            <tr>
-                <td>@e.Nome</td>
-                <td>@e.NomeFabricante</td>
-                <td>@e.PrecoAquisicao.ToString("C2")</td>
-                <td>@e.DataFabricacao.ToShortDateString()</td>
-                <td class="acoes">
-                    <a href="/equipamentos/editar/@e.Id" style="text-decoration: none;" title="Editar">
-                        <i class="bi bi-pencil-square" style="color: #f0b400;"></i>
-                    </a>
-                    <a href="/equipamentos/excluir/@e.Id" title="Excluir">
-                        <i class="bi bi-trash" style="color: #e63946;"></i>
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+@if (!Model.Registros.Any())
+{
+	<div class="mensagem-vazia">
+		Nenhum registro encontrado.
+	</div>
+}
+else
+{
+	<table class="tabela-registros">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Fabricante</th>
+				<th>Preço</th>
+				<th>Data de Fabricação</th>
+				<th>Ações</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var e in Model.Registros)
+			{
+				<tr>
+					<td>@e.Nome</td>
+					<td>@e.NomeFabricante</td>
+					<td>@e.PrecoAquisicao.ToString("C2")</td>
+					<td>@e.DataFabricacao.ToShortDateString()</td>
+					<td class="acoes">
+						<a href="/equipamentos/editar/@e.Id" style="text-decoration: none;" title="Editar">
+							<i class="bi bi-pencil-square" style="color: #f0b400;"></i>
+						</a>
+						<a href="/equipamentos/excluir/@e.Id" title="Excluir">
+							<i class="bi bi-trash" style="color: #e63946;"></i>
+						</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}

@@ -9,37 +9,47 @@
 }
 
 <link href="~/tabelas.css" rel="stylesheet" />
+<link href="~/mensagem.css" rel="stylesheet" />
 
 <div class="cabecalho-tabela">
-    <h2>Fabricantes</h2>
-    <a href="/fabricantes/cadastrar" class="btn-adicionar">+ Adicionar Fabricante</a>
+	<h2>Fabricantes</h2>
+	<a href="/fabricantes/cadastrar" class="btn-adicionar">+ Adicionar Fabricante</a>
 </div>
 
-<table class="tabela-registros">
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Telefone</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (DetalhesFabricanteViewModel f in Model.Registros)
-        {
-            <tr>
-                <td>@f.Nome</td>
-                <td>@f.Email</td>
-                <td>@f.Telefone</td>
-                <td class="acoes">
-                    <a href="/fabricantes/editar/@f.Id" style="text-decoration: none;" title="Editar">
-                        <i class="bi bi-pencil-square" style="color: #f0b400;"></i>
-                    </a>
-                    <a href="/fabricantes/excluir/@f.Id" title="Excluir">
-                        <i class="bi bi-trash" style="color: #e63946;"></i>
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+@if (!Model.Registros.Any())
+{
+	<div class="mensagem-vazia">
+		Nenhum registro encontrado.
+	</div>
+}
+else
+{
+	<table class="tabela-registros">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Email</th>
+				<th>Telefone</th>
+				<th>Ações</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (DetalhesFabricanteViewModel f in Model.Registros)
+			{
+				<tr>
+					<td>@f.Nome</td>
+					<td>@f.Email</td>
+					<td>@f.Telefone</td>
+					<td class="acoes">
+						<a href="/fabricantes/editar/@f.Id" style="text-decoration: none;" title="Editar">
+							<i class="bi bi-pencil-square" style="color: #f0b400;"></i>
+						</a>
+						<a href="/fabricantes/excluir/@f.Id" title="Excluir">
+							<i class="bi bi-trash" style="color: #e63946;"></i>
+						</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}

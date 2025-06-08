@@ -102,3 +102,10 @@
     .tabela-registros td.acoes a:hover {
         color: #8b32f4;
     }
+
+.tabela-registros td.descricao {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

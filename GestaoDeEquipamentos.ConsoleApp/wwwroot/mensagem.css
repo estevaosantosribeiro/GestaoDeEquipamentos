@@ -1,0 +1,11 @@
+﻿.mensagem-vazia {
+    padding: 2rem;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    color: #666;
+    background-color: #f9f9f9;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    margin-top: 1rem;
+}

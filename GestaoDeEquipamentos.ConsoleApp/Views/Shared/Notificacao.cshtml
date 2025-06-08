@@ -2,9 +2,13 @@
 @model NotificacaoViewModel;
 
 @{
-    Layout = "_Layout";
-    ViewBag.Titulo = Model.Titulo;
+	Layout = "_Layout";
+	ViewBag.Titulo = Model.Titulo;
 }
 
+<link href="~/notificacao.css" rel="stylesheet" />
 
-<p>@Model.Mensagem</p>
+<div class="notificacao-container">
+	<p>@Model.Mensagem</p>
+	<a href="/" class="btn-voltar">Voltar</a>
+</div>
