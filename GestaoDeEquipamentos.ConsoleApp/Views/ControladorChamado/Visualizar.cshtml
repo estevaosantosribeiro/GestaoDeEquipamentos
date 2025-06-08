@@ -11,48 +11,51 @@
 <link href="~/mensagem.css" rel="stylesheet" />
 
 <div class="cabecalho-tabela">
-	<h2>Chamados</h2>
-	<a href="/chamados/cadastrar" class="btn-adicionar">+ Adicionar Chamado</a>
+    <h2>Chamados</h2>
+    <a href="/chamados/cadastrar" class="btn-adicionar">+ Adicionar Chamado</a>
 </div>
 
 @if (!Model.Registros.Any())
 {
-	<div class="mensagem-vazia">
-		Nenhum registro encontrado.
-	</div>
+    <div class="mensagem-vazia">
+        Nenhum registro encontrado.
+    </div>
 }
 else
 {
-	<table class="tabela-registros">
-		<thead>
-			<tr>
-				<th>Equipamento</th>
-				<th>Título</th>
-				<th>Descrição</th>
-				<th>Data de Abertura</th>
-				<th>Dias em Aberto</th>
-				<th>Ações</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var c in Model.Registros)
-			{
-				<tr>
-					<td>@c.NomeEquipamento</td>
-					<td>@c.Titulo</td>
-					<td class="descricao">@c.Descricao</td>
-					<td>@c.DataAbertura.ToShortDateString()</td>
-					<td>@c.TempoDecorrido dias</td>
-					<td class="acoes">
-						<a href="/chamados/editar/@c.Id" style="text-decoration: none;" title="Editar">
-							<i class="bi bi-pencil-square" style="color: #f0b400;"></i>
-						</a>
-						<a href="/chamados/excluir/@c.Id" title="Excluir">
-							<i class="bi bi-trash" style="color: #e63946;"></i>
-						</a>
-					</td>
-				</tr>
-			}
-		</tbody>
-	</table>
+    <div class="grid-registros">
+        @foreach (var c in Model.Registros)
+        {
+            <div class="card-registro">
+                <div class="campo-registro">
+                    <strong>Equipamento:</strong>
+                    <span>@c.NomeEquipamento</span>
+                </div>
+                <div class="campo-registro">
+                    <strong>Título:</strong>
+                    <span>@c.Titulo</span>
+                </div>
+                <div class="campo-registro">
+                    <strong>Descrição:</strong>
+                    <span>@c.Descricao</span>
+                </div>
+                <div class="campo-registro">
+                    <strong>Data de Abertura:</strong>
+                    <span>@c.DataAbertura.ToShortDateString()</span>
+                </div>
+                <div class="campo-registro">
+                    <strong>Dias em Aberto:</strong>
+                    <span>@c.TempoDecorrido dias</span>
+                </div>
+                <div class="acoes-registro">
+                    <a class="botoes-acoes" href="/chamados/editar/@c.Id" title="Editar">
+                        <i class="bi bi-pencil-square"></i> Editar
+                    </a>
+                    <a class="botoes-acoes" href="/chamados/excluir/@c.Id" title="Excluir">
+                        <i class="bi bi-trash"></i> Excluir
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
 }

@@ -1,74 +1,65 @@
-﻿.tabela-registros {
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: 12px;
-    overflow: hidden;
-    background-color: #fff;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
-    font-family: 'Poppins', sans-serif;
+﻿.grid-registros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
     margin-top: 1.5rem;
+    justify-content: flex-start; /* Alinha os cards à esquerda */
 }
 
-    .tabela-registros thead {
-        background-color: #f3f3f3;
-        text-align: left;
-    }
+.card-registro {
+    width: calc(25% - 1rem); /* 4 por linha em telas grandes */
+    background-color: #fff;
+    border: 1px solid #8b32f4;
+    border-left: 4px solid #8b32f4;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    font-family: 'Poppins', sans-serif;
+    min-width: 220px;
+}
 
-    .tabela-registros th,
-    .tabela-registros td {
-        padding: 1rem 1.2rem;
-        border-bottom: 1px solid #eee;
-        font-size: 0.95rem;
-    }
 
-    .tabela-registros tbody tr:hover {
-        background-color: #f9f9f9;
-    }
 
-    .tabela-registros th {
-        font-weight: 600;
+.campo-registro {
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+    .campo-registro strong {
+        display: block;
         color: #0e0d0d;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
     }
 
-    .tabela-registros td {
-        color: #333;
-    }
-
-.btn-acao {
-    padding: 0.4rem 0.8rem;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    text-decoration: none;
-    margin-right: 0.5rem;
-    transition: all 0.2s ease-in-out;
+.acoes-registro {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
 }
 
-    .btn-acao.editar {
-        background-color: #8b32f4;
-        color: white;
+/* Responsividade */
+@media (max-width: 1024px) {
+    .card-registro {
+        width: calc(33.33% - 1rem); /* 3 por linha */
     }
+}
 
-        .btn-acao.editar:hover {
-            background-color: #5320ab;
-        }
-
-    .btn-acao.excluir {
-        background-color: #e74c3c;
-        color: white;
+@media (max-width: 768px) {
+    .card-registro {
+        width: calc(95% - 1rem); /* 2 por linha */
     }
+}
 
-        .btn-acao.excluir:hover {
-            background-color: #c0392b;
-        }
-
+/* Cabeçalho da seção de registros */
 .cabecalho-tabela {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
-    margin-top: 1.5rem;
+    margin: 2rem 0 1.2rem;
 }
 
     .cabecalho-tabela h2 {
@@ -92,20 +83,26 @@
         background-color: #5320ab;
     }
 
-.tabela-registros td.acoes a {
-    margin-right: 0.5rem;
-    color: #555;
-    font-size: 1.8rem;
-    transition: color 0.2s ease;
+/* Mensagem para quando não há registros */
+.mensagem-vazia {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: #777;
+    text-align: center;
+    margin-top: 2rem;
 }
 
-    .tabela-registros td.acoes a:hover {
-        color: #8b32f4;
-    }
+.botoes-acoes {
+    text-decoration: none;
+    color: black;
+    border: 1px solid black;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 15px;
+    transition: all ease 0.3s;
+}
 
-.tabela-registros td.descricao {
-    max-width: 200px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.botoes-acoes:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
