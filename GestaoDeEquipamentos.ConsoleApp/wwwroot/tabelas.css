@@ -46,11 +46,18 @@
     .card-registro {
         width: calc(33.33% - 1rem); /* 3 por linha */
     }
+    .grid-registros {
+        justify-content: center;
+    }
 }
 
 @media (max-width: 768px) {
     .card-registro {
         width: calc(95% - 1rem); /* 2 por linha */
+    }
+
+    .cabecalho-tabela {
+        flex-direction: column;
     }
 }
 
