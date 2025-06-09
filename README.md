@@ -2,7 +2,7 @@
 
 ## Controle de Equipamentos
 
-![](https://i.imgur.com/q7ouye7.gif)
+![](https://i.imgur.com/AcU0BxT.gif)
 
 ## Sobre o Projeto
 
